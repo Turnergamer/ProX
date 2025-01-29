@@ -103,6 +103,8 @@ end
 -- Ensure new players get ESP as well
 Players.PlayerAdded:Connect(function(player)
     if ESPenabled then
+        -- Wait until the player's character is added to the game before creating the ESP
+        player.CharacterAdded:Wait()
         createESP(player)
     end
 end)

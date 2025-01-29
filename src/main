@@ -11,7 +11,6 @@ frame.Parent = screenGui
 frame.Size = UDim2.new(0, 600, 0, 400) -- Increased size
 frame.Position = UDim2.new(0.2, 0, 0.15, 0)
 frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-frame.BorderSizePixel = 0
 
 local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 15)
@@ -33,9 +32,9 @@ DividerLine.Name = "DividerLine"
 DividerLine.Size = UDim2.new(0, 4, 0.9, 0)
 DividerLine.Position = UDim2.new(0.15, 0, 0.05, 0)
 DividerLine.BackgroundColor3 = Color3.fromRGB(8, 146, 208)
-DividerLine.BorderSizePixel = 0
 DividerLine.Parent = frame
 
+-- Function to create Tab Buttons
 local function createTabButton(name, text, posY)
 	local button = Instance.new("TextButton")
 	button.Name = name
@@ -50,11 +49,13 @@ local function createTabButton(name, text, posY)
 	return button
 end
 
+-- Tab Buttons
 local CombatTabButton = createTabButton("CombatTabButton", "Combat", 0.1)
 local VisualsTabButton = createTabButton("VisualsTabButton", "Visuals", 0.2)
 local MiscTabButton = createTabButton("MiscTabButton", "Misc", 0.3)
 local CreditsTabButton = createTabButton("CreditsTabButton", "Credits", 0.4)
 
+-- Function to create Tabs
 local function createTab(name)
 	local tab = Instance.new("Frame")
 	tab.Name = name
@@ -69,12 +70,13 @@ local function createTab(name)
 	return tab
 end
 
+-- Create Tabs
 local CombatTab = createTab("CombatTab")
-CombatTab.Visible = true
 local VisualsTab = createTab("VisualsTab")
 local MiscTab = createTab("MiscTab")
 local CreditsTab = createTab("CreditsTab")
 
+-- Function to Connect Tab Buttons to Tabs
 local function connectTabButton(button, tab)
 	button.MouseButton1Click:Connect(function()
 		CombatTab.Visible = false
@@ -85,40 +87,37 @@ local function connectTabButton(button, tab)
 	end)
 end
 
+-- Connect Tab Buttons
 connectTabButton(CombatTabButton, CombatTab)
 connectTabButton(VisualsTabButton, VisualsTab)
 connectTabButton(MiscTabButton, MiscTab)
 connectTabButton(CreditsTabButton, CreditsTab)
 
+-- Combat Tab Elements
+local SilentAimText = Instance.new("TextLabel")
+SilentAimText.Name = "SilentAimText"
+SilentAimText.Size = UDim2.new(0.6, 0, 0.2, 0)
+SilentAimText.Position = UDim2.new(0.2, 0, 0, 0)
+SilentAimText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+SilentAimText.Text = "Silent Aim"
+SilentAimText.TextColor3 = Color3.fromRGB(255, 255, 255)
+SilentAimText.TextScaled = true
+SilentAimText.Font = Enum.Font.GothamBold
+SilentAimText.Parent = CombatTab
 
---COMBAT--
-local GunOptionText = Instance.new("TextLabel")
-GunOptionText.Name = "MoneyGenerator"
-GunOptionText.Size = UDim2.new(0.6, 0, 0.2, 0)
-GunOptionText.Position = UDim2.new(0.2, 0, 0, 0)
-GunOptionText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-GunOptionText.Text = "Silent Aim"
-GunOptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
-GunOptionText.TextScaled = true
-GunOptionText.Font = Enum.Font.GothamBold
-GunOptionText.Parent = CombatTab
+local SilentAimButton = Instance.new("TextButton")
+SilentAimButton.Name = "SilentAimButton"
+SilentAimButton.Size = UDim2.new(0.2, 0, 0.15, 0)
+SilentAimButton.Position = UDim2.new(0.4, 0, 0.2, 0)
+SilentAimButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+SilentAimButton.Text = "Activate Silent Aim"
+SilentAimButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+SilentAimButton.TextScaled = true
+SilentAimButton.BorderColor3 = Color3.fromRGB(8, 146, 208)
+SilentAimButton.Font = Enum.Font.GothamBold
+SilentAimButton.Parent = CombatTab
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Movement Text in Combat Tab
 local MovementText = Instance.new("TextLabel")
 MovementText.Name = "MovementText"
 MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
@@ -130,21 +129,21 @@ MovementText.TextScaled = true
 MovementText.Font = Enum.Font.GothamBold
 MovementText.Parent = CombatTab
 
-local MovementText = Instance.new("TextLabel")
-MovementText.Name = "MovementText"
-MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
-MovementText.Position = UDim2.new(0.15, 0, 0.5, 0)
-MovementText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MovementText.Text = "Movement Options"
-MovementText.TextColor3 = Color3.fromRGB(255, 255, 255)
-MovementText.TextScaled = true
-MovementText.Font = Enum.Font.GothamBold
-MovementText.Parent = CombatTab
+local SPEEDHACK = Instance.new("TextButton")
+SPEEDHACK.Name = "Speedhack"
+SPEEDHACK.Size = UDim2.new(0.2, 0, 0.15, 0)
+SPEEDHACK.Position = UDim2.new(0.4, 0, 0.6, 0)
+SPEEDHACK.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+SPEEDHACK.Text = "Speedhack"
+SPEEDHACK.TextColor3 = Color3.fromRGB(255, 255, 255)
+SPEEDHACK.TextScaled = true
+SPEEDHACK.BorderColor3 = Color3.fromRGB(8, 146, 208)
+SPEEDHACK.Font = Enum.Font.GothamBold
+SPEEDHACK.Parent = CombatTab
 
---COMBAT--
---MISC--
+-- Misc Tab Elements
 local CrateText = Instance.new("TextLabel")
-CrateText.Name = "MoneyGenerator"
+CrateText.Name = "CrateText"
 CrateText.Size = UDim2.new(0.6, 0, 0.2, 0)
 CrateText.Position = UDim2.new(0.2, 0, 0, 0)
 CrateText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -153,8 +152,6 @@ CrateText.TextColor3 = Color3.fromRGB(255, 255, 255)
 CrateText.TextScaled = true
 CrateText.Font = Enum.Font.GothamBold
 CrateText.Parent = MiscTab
-
-
 
 local RollAndSell = Instance.new("TextButton")
 RollAndSell.Name = "RollAndSell"
@@ -180,7 +177,6 @@ JustRoll.BorderColor3 = Color3.fromRGB(8, 146, 208)
 JustRoll.Font = Enum.Font.GothamBold
 JustRoll.Parent = MiscTab
 
-
 local JustSell = Instance.new("TextButton")
 JustSell.Name = "JustSell"
 JustSell.Size = UDim2.new(0.2, 0, 0.15, 0)
@@ -193,270 +189,43 @@ JustSell.BorderColor3 = Color3.fromRGB(8, 146, 208)
 JustSell.Font = Enum.Font.GothamBold
 JustSell.Parent = MiscTab
 
---MISC
---CREDITS--
+-- Credits Tab Elements
+
+local CreditTitle = Instance.new("TextLabel")
+CreditTitle.Name = "CreditText"
+CreditTitle.Size = UDim2.new(0.8, 0, 0.2, 0)
+CreditTitle.Position = UDim2.new(0.1, 0, 0.2, 0)
+CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CreditTitle.Text = "Made With Love By Ben"
+CreditTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+CreditTitle.TextScaled = true
+CreditTitle.Font = Enum.Font.GothamBold
+CreditTitle.Parent = CreditsTab
+
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Name = "TitleLabel"
+TitleLabel.Size = UDim2.new(1, 0, 0.1, 0)
+TitleLabel.Position = UDim2.new(-0.42, 0, 0, 0)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "ProX"
+TitleLabel.TextColor3 = Color3.fromRGB(8, 146, 208)
+TitleLabel.TextScaled = true
+TitleLabel.Font = Enum.Font.ArialBold
+TitleLabel.Parent = frame
+
 
 local CreditText = Instance.new("TextLabel")
-CreditText.Name = "Credits"
-CreditText.Size = UDim2.new(0.6, 0, 0.2, 0)
-CreditText.Position = UDim2.new(0.2, 0, 0, 0)
+CreditText.Name = "CreditText"
+CreditText.Size = UDim2.new(0.8, 0, 0.2, 0)
+CreditText.Position = UDim2.new(0.1, 0, 0, 0)
 CreditText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-CreditText.Text = "Credits"
-CreditText.TextColor3 = Color3.fromRGB(255, 255, 255)
-CreditText.TextScaled = true
-CreditText.Font = Enum.Font.GothamBold
-CreditText.Parent = CreditsTab
-
-
-
---credits
-local UserInputService = game:GetService("UserInputService")
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	if gameProcessed then return end
-	if input.KeyCode == Enum.KeyCode.U then
-		frame.Visible = not frame.Visible
-	end
-end)
-
-
-
-
-
-
---silent aim 
-
-
-local UserInputService = game:GetService("UserInputService")
-
--- Default Keybind
-local SilentAimKeybind = Enum.KeyCode.F -- Default Key is "F"
-
--- Create Keybind Change Button
-local ChangeKeybind = Instance.new("TextButton")
-ChangeKeybind.Name = "ChangeKeybind"
-ChangeKeybind.Size = UDim2.new(0.2, 0, 0.15, 0)
-ChangeKeybind.Position = UDim2.new(0.4, 0, 0.2, 0)
-ChangeKeybind.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-ChangeKeybind.Text = "Change Keybind"
-ChangeKeybind.TextColor3 = Color3.fromRGB(255, 255, 255)
-ChangeKeybind.TextScaled = true
-ChangeKeybind.BorderColor3 = Color3.fromRGB(8, 146, 208)
-ChangeKeybind.Font = Enum.Font.GothamBold
-ChangeKeybind.Parent = CombatTab
-
-local waitingForKey = false
-
-ChangeKeybind.MouseButton1Click:Connect(function()
-	if waitingForKey then return end
-	waitingForKey = true
-	ChangeKeybind.Text = "Press a Key..."
-
-	local connection
-	connection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
-		if gameProcessed then return end
-		if input.UserInputType == Enum.UserInputType.Keyboard then
-			SilentAimKeybind = input.KeyCode -- Set new keybind
-			ChangeKeybind.Text = "Key: " .. tostring(SilentAimKeybind):gsub("Enum.KeyCode.", "")
-			waitingForKey = false
-			connection:Disconnect()
-		end
-	end)
-end)
-
--- Detect Key Press to Toggle Silent Aim
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	if gameProcessed then return end
-	if input.KeyCode == SilentAimKeybind then
-		print("Silent Aim Activated") -- Replace this with your Silent Aim function
-	end
-end)
-
-
--- Create GUI Elements
-local screenGui = Instance.new("ScreenGui")
-local frame = Instance.new("Frame")
-local button = Instance.new("TextButton")
-
--- Parent the GUI to the Player's ScreenGui
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
--- Configure the Frame
-frame.Parent = screenGui
-frame.Size = UDim2.new(0, 600, 0, 400) -- Increased size
-frame.Position = UDim2.new(0.2, 0, 0.15, 0)
-frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-frame.BorderSizePixel = 0
-
-local frameCorner = Instance.new("UICorner")
-frameCorner.CornerRadius = UDim.new(0, 15)
-frameCorner.Parent = frame
-
-local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Name = "TitleLabel"
-TitleLabel.Size = UDim2.new(1, 0, 0.1, 0)
-TitleLabel.Position = UDim2.new(-0.42, 0, 0, 0)
-TitleLabel.BackgroundTransparency = 1
-TitleLabel.Text = "ProX"
+CreditText.Text = "ProX"
 TitleLabel.TextColor3 = Color3.fromRGB(8, 146, 208)
-TitleLabel.TextScaled = true
-TitleLabel.Font = Enum.Font.ArialBold
-TitleLabel.Parent = frame
-
-local DividerLine = Instance.new("Frame")
-DividerLine.Name = "DividerLine"
-DividerLine.Size = UDim2.new(0, 4, 0.9, 0)
-DividerLine.Position = UDim2.new(0.15, 0, 0.05, 0)
-DividerLine.BackgroundColor3 = Color3.fromRGB(8, 146, 208)
-DividerLine.BorderSizePixel = 0
-DividerLine.Parent = frame
-
-local function createTabButton(name, text, posY)
-	local button = Instance.new("TextButton")
-	button.Name = name
-	button.Size = UDim2.new(0.15, 0, 0.08, 0)
-	button.Position = UDim2.new(0, 0, posY, 0)
-	button.BackgroundTransparency = 1
-	button.Text = text
-	button.TextColor3 = Color3.fromRGB(255, 255, 255)
-	button.TextScaled = true
-	button.Font = Enum.Font.GothamBold
-	button.Parent = frame
-	return button
-end
-
-local CombatTabButton = createTabButton("CombatTabButton", "Combat", 0.1)
-local VisualsTabButton = createTabButton("VisualsTabButton", "Visuals", 0.2)
-local MiscTabButton = createTabButton("MiscTabButton", "Misc", 0.3)
-local CreditsTabButton = createTabButton("CreditsTabButton", "Credits", 0.4)
-
-local function createTab(name)
-	local tab = Instance.new("Frame")
-	tab.Name = name
-	tab.Size = UDim2.new(0.82, 0, 0.9, 0)
-	tab.Position = UDim2.new(0.18, 0, 0.05, 0)
-	tab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	tab.Visible = false
-	tab.Parent = frame
-	local frameCorner = Instance.new("UICorner")
-	frameCorner.CornerRadius = UDim.new(0, 15)
-	frameCorner.Parent = tab
-	return tab
-end
-
-local CombatTab = createTab("CombatTab")
-CombatTab.Visible = true
-local VisualsTab = createTab("VisualsTab")
-local MiscTab = createTab("MiscTab")
-local CreditsTab = createTab("CreditsTab")
-
-local function connectTabButton(button, tab)
-	button.MouseButton1Click:Connect(function()
-		CombatTab.Visible = false
-		VisualsTab.Visible = false
-		MiscTab.Visible = false
-		CreditsTab.Visible = false
-		tab.Visible = true
-	end)
-end
-
-connectTabButton(CombatTabButton, CombatTab)
-connectTabButton(VisualsTabButton, VisualsTab)
-connectTabButton(MiscTabButton, MiscTab)
-connectTabButton(CreditsTabButton, CreditsTab)
-
-
---COMBAT--
-local GunOptionText = Instance.new("TextLabel")
-GunOptionText.Name = "MoneyGenerator"
-GunOptionText.Size = UDim2.new(0.6, 0, 0.2, 0)
-GunOptionText.Position = UDim2.new(0.2, 0, 0, 0)
-GunOptionText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-GunOptionText.Text = "Silent Aim"
-GunOptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
-GunOptionText.TextScaled = true
-GunOptionText.Font = Enum.Font.GothamBold
-GunOptionText.Parent = CombatTab
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local MovementText = Instance.new("TextLabel")
-MovementText.Name = "MovementText"
-MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
-MovementText.Position = UDim2.new(0.15, 0, 0.4, 0)
-MovementText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MovementText.Text = "Movement Options"
-MovementText.TextColor3 = Color3.fromRGB(255, 255, 255)
-MovementText.TextScaled = true
-MovementText.Font = Enum.Font.GothamBold
-MovementText.Parent = CombatTab
-
---COMBAT--
---MISC--
-local CrateText = Instance.new("TextLabel")
-CrateText.Name = "MoneyGenerator"
-CrateText.Size = UDim2.new(0.6, 0, 0.2, 0)
-CrateText.Position = UDim2.new(0.2, 0, 0, 0)
-CrateText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-CrateText.Text = "Money Generator"
-CrateText.TextColor3 = Color3.fromRGB(255, 255, 255)
-CrateText.TextScaled = true
-CrateText.Font = Enum.Font.GothamBold
-CrateText.Parent = MiscTab
-
-
-
-local RollAndSell = Instance.new("TextButton")
-RollAndSell.Name = "RollAndSell"
-RollAndSell.Size = UDim2.new(0.2, 0, 0.15, 0)
-RollAndSell.Position = UDim2.new(0.1, 0, 0.2, 0)
-RollAndSell.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-RollAndSell.Text = "Roll And Sell"
-RollAndSell.TextColor3 = Color3.fromRGB(255, 255, 255)
-RollAndSell.TextScaled = true
-RollAndSell.BorderColor3 = Color3.fromRGB(8, 146, 208)
-RollAndSell.Font = Enum.Font.GothamBold
-RollAndSell.Parent = MiscTab
-
-local JustRoll = Instance.new("TextButton")
-JustRoll.Name = "JustRoll"
-JustRoll.Size = UDim2.new(0.2, 0, 0.15, 0)
-JustRoll.Position = UDim2.new(0.4, 0, 0.2, 0)
-JustRoll.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-JustRoll.Text = "Just Roll"
-JustRoll.TextColor3 = Color3.fromRGB(255, 255, 255)
-JustRoll.TextScaled = true
-JustRoll.BorderColor3 = Color3.fromRGB(8, 146, 208)
-JustRoll.Font = Enum.Font.GothamBold
-JustRoll.Parent = MiscTab
-
-
-local JustSell = Instance.new("TextButton")
-JustSell.Name = "JustSell"
-JustSell.Size = UDim2.new(0.2, 0, 0.15, 0)
-JustSell.Position = UDim2.new(0.7, 0, 0.2, 0)
-JustSell.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-JustSell.Text = "Just Sell"
-JustSell.TextColor3 = Color3.fromRGB(255, 255, 255)
-JustSell.TextScaled = true
-JustSell.BorderColor3 = Color3.fromRGB(8, 146, 208)
-JustSell.Font = Enum.Font.GothamBold
-JustSell.Parent = MiscTab
+CreditText.TextScaled = true
+CreditText.Font = Enum.Font.ArialBold
+CreditText.Parent = CreditsTab
+CreditText.BackgroundTransparency = 1
+-- End of the GUI Setup
 
 --MISC
 

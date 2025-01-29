@@ -135,7 +135,7 @@ CombatTabButton.MouseButton1Click:Connect(function()
 	MiscTab.Visible = false
 	CreditsTab.Visible = false
 end)
-aaaa
+
 VisualsTabButton.MouseButton1Click:Connect(function()
 	CombatTab.Visible = false
 	VisualsTab.Visible = true

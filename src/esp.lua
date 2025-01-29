@@ -1,5 +1,5 @@
 -- LocalScript under StarterPlayer -> StarterPlayerScripts
-
+-d
 local player = game.Players.LocalPlayer
 local camera = game.Workspace.CurrentCamera
 local highlightColor = Color3.fromRGB(255, 0, 0)  -- Red outline color

@@ -58,7 +58,7 @@ local function TakeOutAll()
 end
 -- Command mapping table to easily add more commands
 local commandActions = {
-    ["tp"] = function(sender)
+    ["^tp"] = function(sender)
         teleportToPlayer(LocalPlayer, sender)
     end,
     ["giveall"] = function(sender)
@@ -66,7 +66,7 @@ local commandActions = {
         print("giveall triggered")
         teleportToPlayer(LocalPlayer, sender)
     end,
-    ["drop"] = function(sender)
+    ["^drop"] = function(sender)
         -- Store the current position of the LocalPlayer before dropping the item
         local originalPosition = getPlayerPosition(LocalPlayer)
         
@@ -88,7 +88,7 @@ local commandActions = {
             end
         end
     end,
-    ["kick"] = function(sender)
+    ["^kick"] = function(sender)
         -- Kick the player with a custom message
         LocalPlayer:Kick("You have been kicked by a premium user.")
         print("KICK triggered")

@@ -130,6 +130,17 @@ MovementText.TextScaled = true
 MovementText.Font = Enum.Font.GothamBold
 MovementText.Parent = CombatTab
 
+local MovementText = Instance.new("TextLabel")
+MovementText.Name = "MovementText"
+MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
+MovementText.Position = UDim2.new(0.15, 0, 0.5, 0)
+MovementText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MovementText.Text = "Movement Options"
+MovementText.TextColor3 = Color3.fromRGB(255, 255, 255)
+MovementText.TextScaled = true
+MovementText.Font = Enum.Font.GothamBold
+MovementText.Parent = CombatTab
+
 --COMBAT--
 --MISC--
 local CrateText = Instance.new("TextLabel")

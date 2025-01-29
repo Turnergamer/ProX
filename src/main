@@ -506,23 +506,20 @@ local RunService = game:GetService("RunService")
 
 -- Button click handler
 SPEEDHACK.MouseButton1Click:Connect(function()
-    local speaker = game.Players.LocalPlayer  -- Assuming LocalPlayer, change if necessary
-    local chr = speaker.Character
-    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-    
-    if chr and hum then
-        tpwalking = true
-        
-        -- RunService Heartbeat event for continuous teleportation
-        RunService.Heartbeat:Connect(function(delta)
-            if tpwalking and chr and hum and hum.Parent then
-                if hum.MoveDirection.Magnitude > 0 then
-                    -- Using the fixed value of 5 for teleport distance/speed
-                    chr:TranslateBy(hum.MoveDirection * 5 * delta * 10)
-                end
-            end
-        end)
-    end
+	tpwalking = true
 end)
 
+game:GetService("RunService").Heartbeat:Connect(function(delta)
+    local chr = game.Players.LocalPlayer.Character
+    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 
+    if hum and hum.MoveDirection.Magnitude > 0 then
+        if tpwalking then
+            local tpValue = 5  -- Always use 5 as the teleport distance
+            chr:TranslateBy(hum.MoveDirection * tpValue * delta * 10)  -- Apply teleportation
+        end
+    end
+
+    -- Toggle tpwalking on and off each time the script runs
+    tpwalking = not tpwalking
+end)

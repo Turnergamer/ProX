@@ -11,6 +11,7 @@ local function getRoot(char)
 end
 
 local function createESP(plr)
+
     local espFolder = Instance.new("Folder")
     espFolder.Name = plr.Name .. "_ESP"
     espFolder.Parent = COREGUI
@@ -22,16 +23,17 @@ local function createESP(plr)
             adornment.Adornee = part
             adornment.Size = part.Size
             adornment.Transparency = espTransparency
-            adornment.Color = plr.TeamColor
+            adornment.Color = plr.TeamColor -- Or a custom color
             adornment.AlwaysOnTop = true
             adornment.ZIndex = 5
         end
     end
 
+    -- Billboard for name and distance (optional, but helpful)
     local billboard = Instance.new("BillboardGui")
     billboard.Parent = espFolder
     billboard.Adornee = plr.Character.Head
-    billboard.Size = UDim2.new(0, 100, 0, 50)
+    billboard.Size = UDim2.new(0, 100, 0, 50) -- Adjust size as needed
     billboard.StudsOffset = Vector3.new(0, 1, 0)
     billboard.AlwaysOnTop = true
 
@@ -48,18 +50,21 @@ local function createESP(plr)
     local updateTextFunc
 
     updateTextFunc = RunService.RenderStepped:Connect(function()
-        if espFolder and plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+      if not Players.LocalPlayer.Character or not getRoot(Players.LocalPlayer.Character) then return end -- Check if local player character exists
+
+        if espFolder and plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") then
             local distance = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
-            textLabel.Text = string.format("Name: %s | Health: %d | Dist: %d", plr.Name, plr.Character.Humanoid.Health, distance)
+            textLabel.Text = string.format("Name: %s | Dist: %d", plr.Name, distance) -- Simplified text
         else
           espFolder:Destroy()
           updateTextFunc:Disconnect()
         end
     end)
 
-    plr.CharacterAdded:Connect(function()
+    plr.CharacterAdded:Connect(function(char)
+      task.wait(0.1) -- small wait to ensure everything is loaded
         if ESPenabled then
-            espFolder:Destroy() -- Clean up before recreating
+            espFolder:Destroy()
             createESP(plr)
         end
     end)
@@ -79,7 +84,7 @@ local function toggleESP()
         if player ~= Players.LocalPlayer then
             local existingESP = COREGUI:FindFirstChild(player.Name .. "_ESP")
             if ESPenabled then
-              if not existingESP then -- Only create if it doesn't exist
+              if not existingESP and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then -- Check if character exists before creating
                 createESP(player)
               end
             else
@@ -91,17 +96,20 @@ local function toggleESP()
     end
 end
 
-ContextActionService:BindAction("ToggleESP", toggleESP, false, Enum.KeyCode.E)
+ContextActionService:BindAction("ToggleESP", toggleESP, false, Enum.KeyCode.E) -- Toggle with E
 
 -- Initial ESP for players already in the game
 for _, player in pairs(Players:GetPlayers()) do
-  if player ~= Players.LocalPlayer then
-    createESP(player)
-  end
+    if player ~= Players.LocalPlayer and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then -- Check if character exists before creating
+        createESP(player)
+    end
 end
 
 Players.PlayerAdded:Connect(function(player)
-    if ESPenabled then
-        createESP(player)
-    end
+    player.CharacterAdded:Connect(function() -- Wait for character to be added
+      task.wait(0.1) -- small wait to ensure everything is loaded
+        if ESPenabled then
+            createESP(player)
+        end
+    end)
 end)

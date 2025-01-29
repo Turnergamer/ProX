@@ -140,6 +140,28 @@ SPEEDHACK.TextScaled = true
 SPEEDHACK.BorderColor3 = Color3.fromRGB(8, 146, 208)
 SPEEDHACK.Font = Enum.Font.GothamBold
 SPEEDHACK.Parent = CombatTab
+	
+	
+tpwalking = false  -- Start with tpwalking off
+
+	
+	
+SPEEDHACK.MouseButton1Click:Connect(function()
+	tpwalking = not tpwalking  -- Toggle tpwalking state only when the button is clicked
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function(delta)
+	local chr = game.Players.LocalPlayer.Character
+	local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+
+	if hum and hum.MoveDirection.Magnitude > 0 then
+		if tpwalking then
+			local tpValue = 5  -- Always use 5 as the teleport distance
+			chr:TranslateBy(hum.MoveDirection * tpValue * delta * 10)  -- Apply teleportation
+		end
+	end
+end)
+
 
 -- Misc Tab Elements
 local CrateText = Instance.new("TextLabel")
@@ -498,32 +520,5 @@ RollAndSell.MouseButton1Click:Connect(function()
 end)
 
 
+-- Button cli
 
-local tpwalking = false
-
--- Get RunService for Heartbeat
-local RunService = game:GetService("RunService")
-
--- Button click handler
-
--- Toggle tpwalking when the button is clicked
-SPEEDHACK.MouseButton1Click:Connect(function()
-	_G.tpwalking = true  -- Start with tpwalking off
-
-end)
-
--- Heartbeat connection for teleport walking
-game:GetService("RunService").Heartbeat:Connect(function(delta)
-    local chr = game.Players.LocalPlayer.Character
-    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-
-    if hum and hum.MoveDirection.Magnitude > 0 then
-        if _G.tpwalking then
-            local tpValue = 5  -- Always use 5 as the teleport distance
-            chr:TranslateBy(hum.MoveDirection * tpValue * delta * 10)  -- Apply teleportation
-        end
-    end
-
-    -- Toggle tpwalking on and off each time the script runs
-    _G.tpwalking = not _G.tpwalking
-end)

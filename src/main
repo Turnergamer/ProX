@@ -499,29 +499,30 @@ end)
 
 
 
+local tpwalking = false
 
-local tpwalking = false  -- Start with tpwalking off
-local Speedhack = game:GetService("ReplicatedStorage"):WaitForChild("Speedhack") -- Assuming Speedhack is a button or part
+-- Get RunService for Heartbeat
+local RunService = game:GetService("RunService")
 
-Speedhack.MouseButton1Click:Connect(function()
-    -- Toggle tpwalking on and off when button is clicked
-    tpwalking = not tpwalking
-
-    -- Check the player's character and humanoid
-    local chr = game.Players.LocalPlayer.Character
+-- Button click handler
+SPEEDHACK.MouseButton1Click:Connect(function()
+    local speaker = game.Players.LocalPlayer  -- Assuming LocalPlayer, change if necessary
+    local chr = speaker.Character
     local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-
-    if hum then
-        -- Connect to Heartbeat only when tpwalking is enabled
-        if tpwalking then
-            game:GetService("RunService").Heartbeat:Connect(function(delta)
-                -- Ensure the player is moving
+    
+    if chr and hum then
+        tpwalking = true
+        
+        -- RunService Heartbeat event for continuous teleportation
+        RunService.Heartbeat:Connect(function(delta)
+            if tpwalking and chr and hum and hum.Parent then
                 if hum.MoveDirection.Magnitude > 0 then
-                    local tpValue = 5  -- Use a fixed teleport distance
-                    -- Apply teleportation based on movement direction
-                    chr:TranslateBy(hum.MoveDirection * tpValue * delta * 10)
+                    -- Using the fixed value of 5 for teleport distance/speed
+                    chr:TranslateBy(hum.MoveDirection * 5 * delta * 10)
                 end
-            end)
-        end
+            end
+        end)
     end
 end)
+
+

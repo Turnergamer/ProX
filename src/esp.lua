@@ -2,7 +2,7 @@
 
 local player = game.Players.LocalPlayer
 local camera = game.Workspace.CurrentCamera
-local highlightColor = Color3.fromRGB(255, 0, 0)  -- Red outline color
+local highlightColor = Color3.fromRGB(8, 146, 208)  -- New outline color (Blue)
 
 -- Function to create a smooth outline for the character's hitbox
 local function createSmoothOutline(character)
@@ -16,7 +16,7 @@ local function createSmoothOutline(character)
     outlinePart.Anchored = true
     outlinePart.CanCollide = false
     outlinePart.Transparency = 0.5  -- Slight transparency
-    outlinePart.Color = highlightColor
+    outlinePart.Color = highlightColor  -- Use the new color here
     outlinePart.Material = Enum.Material.SmoothPlastic  -- Smooth material for a better look
     outlinePart.Parent = workspace
 
@@ -29,7 +29,7 @@ local function createSmoothOutline(character)
     -- Create a frame with glowing effect around the character's hitbox
     local glowFrame = Instance.new("Frame")
     glowFrame.Size = UDim2.new(1, 0, 1, 0)  -- Make it cover the whole part
-    glowFrame.BackgroundColor3 = highlightColor
+    glowFrame.BackgroundColor3 = highlightColor  -- Use the new color here
     glowFrame.BackgroundTransparency = 0.5
     glowFrame.BorderSizePixel = 0
     glowFrame.Parent = surfaceGui

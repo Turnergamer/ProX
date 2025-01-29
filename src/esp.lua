@@ -1,55 +1,44 @@
 -- LocalScript under StarterPlayer -> StarterPlayerScripts
--d
+
 local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
 local camera = game.Workspace.CurrentCamera
-local highlightColor = Color3.fromRGB(255, 0, 0)  -- Red outline color
+local highlightColor = Color3.fromRGB(255, 0, 0) -- Red color for the chams effect
 
--- Function to apply outline effect to character's hitbox
-local function applyOutlineToCharacter(character)
-    -- Ensure the character is loaded
-    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-    -- Loop through each part of the character
+-- Function to apply chams to the character
+local function applyChamsToCharacter(character)
     for _, part in pairs(character:GetChildren()) do
         if part:IsA("BasePart") then
-            -- Check if the part is not already highlighted
-            local existingHighlight = part:FindFirstChildOfClass("Highlight")
-            if not existingHighlight then
-                -- Create a new highlight object for the part
-                local highlight = Instance.new("Highlight")
-                highlight.Parent = part
-                highlight.FillTransparency = 1  -- Make the part fully transparent
-                highlight.OutlineTransparency = 0  -- Make the outline visible
-                highlight.OutlineColor = highlightColor  -- Set the outline color
-                highlight.OutlineThickness = 0.1  -- Thickness of the outline
-            end
+            -- Create a new part with the same size and position
+            local chamPart = Instance.new("Part")
+            chamPart.Size = part.Size
+            chamPart.Position = part.Position
+            chamPart.Anchored = true
+            chamPart.CanCollide = false
+            chamPart.Transparency = 0.5 -- Transparency to see through walls
+            chamPart.Color = highlightColor
+            chamPart.Parent = workspace
+
+            -- Match the cham part to the part's position and rotation
+            chamPart.CFrame = part.CFrame
+            chamPart.Name = "Cham_"..part.Name
+
+            -- Destroy cham part when part is removed
+            part.AncestryChanged:Connect(function(_, parent)
+                if not parent then
+                    chamPart:Destroy()
+                end
+            end)
         end
     end
 end
 
--- Apply outlines when the character is loaded
-local function onCharacterAdded(character)
-    -- Wait for the character to be fully loaded
-    character:WaitForChild("HumanoidRootPart")
-    applyOutlineToCharacter(character)
+-- Apply chams when the character spawns
+character:WaitForChild("HumanoidRootPart")
+applyChamsToCharacter(character)
 
-    -- Listen for when the character respawns
-    character:WaitForChild("Humanoid").Died:Connect(function()
-        for _, part in pairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                -- Remove any highlight effects after the character dies
-                local highlight = part:FindFirstChildOfClass("Highlight")
-                if highlight then
-                    highlight:Destroy()
-                end
-            end
-        end
-    end)
-end
-
--- Handle the player's character spawning and respawning
-if player.Character then
-    onCharacterAdded(player.Character)
-else
-    player.CharacterAdded:Connect(onCharacterAdded)
-end
+-- Reapply chams if the player respawns
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    applyChamsToCharacter(character)
+end)

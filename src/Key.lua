@@ -1,19 +1,10 @@
+local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys", true))
 
-local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/id", true))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+local KEYS = {}
+-- Convert the comma-separated keys into a table
+for key in string.gmatch(ids, "%S+") do
+    table.insert(KEYS, key)
+end
 
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -78,6 +69,26 @@ buttonCorner.Parent = enterButton
 
 -- Button functionality (can be customized)
 enterButton.MouseButton1Click:Connect(function()
-	local key = keyInputBox.Text
-	print("Key Entered: " .. key)
+    local key = keyInputBox.Text
+    -- Check if the entered key exists in the KEYS table
+    local validKey = false
+    for _, storedKey in ipairs(KEYS) do
+        if storedKey == key then
+            validKey = true
+            break
+        end
+    end
+    
+    -- Display feedback to the user
+    if validKey then
+        print("Key is valid: " .. key)
+        -- You can add any action here when the key is valid
+        keyInputBox.Text = "Key Accepted"
+        keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
+    else
+        print("Invalid key: " .. key)
+        -- You can add any action here when the key is invalid
+        keyInputBox.Text = "Invalid Key"
+        keyInputBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red color for error
+    end
 end)

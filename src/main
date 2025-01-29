@@ -124,7 +124,7 @@ ESPBUTTON.Parent = VisualsTab
 
 
 ESPBUTTON.MouseButton1Click:Connect(function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/esp.lua", true)) -- Toggle tpwalking state only when the button is clicked
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/esp.lua", true))() -- Toggle tpwalking state only when the button is clicked
 end)
 -- FOV Slider UI Setup (same as previous)
 

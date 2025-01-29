@@ -157,17 +157,31 @@ CreditsTabButton.MouseButton1Click:Connect(function()
 	CreditsTab.Visible = true
 end)
 
-local MoneyGenButton = Instance.new("TextButton")
-MoneyGenButton.Name = "MoneyGenButton"
-MoneyGenButton.Size = UDim2.new(0.6, 0, 0.1, 0)  -- Adjusted size for the button
-MoneyGenButton.Position = UDim2.new(0.1, 0, 0.2, 0)  -- Positioned within the Misc Tab
-MoneyGenButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MoneyGenButton.Text = "Money Generator | Crates"
-MoneyGenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-MoneyGenButton.TextScaled = true
-MoneyGenButton.BorderColor3 = Color3.fromRGB(8, 146, 208)
-MoneyGenButton.Font = Enum.Font.GothamBold
-MoneyGenButton.Parent = MiscTab
+
+local CrateText = Instance.new("TextLabel")
+CrateText.Name = "MoneyGenerator"
+CrateText.Size = UDim2.new(0.6, 0, 0.1, 0)  -- Adjusted size for the button
+CrateText.Position = UDim2.new(0.1, 0, 0.2, 0)  -- Positioned within the Misc Tab
+CrateText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CrateText.Text = "Money Generator | Crates"
+CrateText.TextColor3 = Color3.fromRGB(255, 255, 255)
+CrateText.TextScaled = true
+CrateText.BorderColor3 = Color3.fromRGB(8, 146, 208)
+CrateText.Font = Enum.Font.GothamBold
+CrateText.Parent = MiscTab
+
+
+local RollAndSell = Instance.new("TextButton")
+RollAndSell.Name = "RollAndSell"
+RollAndSell.Size = UDim2.new(0.6, 0, 0.1, 0)  -- Adjusted size for the button
+RollAndSell.Position = UDim2.new(0.1, 0, 0.2, 0)  -- Positioned within the Misc Tab
+RollAndSell.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+RollAndSell.Text = "Roll And Sell"
+RollAndSell.TextColor3 = Color3.fromRGB(255, 255, 255)
+RollAndSell.TextScaled = true
+RollAndSell.BorderColor3 = Color3.fromRGB(8, 146, 208)
+RollAndSell.Font = Enum.Font.GothamBold
+RollAndSell.Parent = MiscTab
 
 
 
@@ -175,7 +189,7 @@ MoneyGenButton.Parent = MiscTab
 
 
 
---logic code
+--logic
 
 
 local UserInputService = game:GetService("UserInputService")

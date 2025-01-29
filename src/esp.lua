@@ -6,6 +6,12 @@ local COREGUI = game:GetService("CoreGui")
 local ESPenabled = false
 
 local function createESP(plr)
+    -- Check if the ESP already exists for this player
+    local existingESP = COREGUI:FindFirstChild(plr.Name .. "_ESP_Billboard")
+    if existingESP then
+        return
+    end
+    
     local billboard = Instance.new("BillboardGui")
     billboard.Name = plr.Name .. "_ESP_Billboard"
     billboard.Adornee = plr.Character and plr.Character:FindFirstChild("Head")
@@ -87,12 +93,14 @@ local function toggleESP()
     end
 end
 
+-- Create ESP for players already in the game
 for _, player in pairs(Players:GetPlayers()) do
     if player ~= Players.LocalPlayer then
         createESP(player)
     end
 end
 
+-- Ensure new players get ESP as well
 Players.PlayerAdded:Connect(function(player)
     if ESPenabled then
         createESP(player)

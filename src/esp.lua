@@ -2,60 +2,52 @@
 
 local player = game.Players.LocalPlayer
 local camera = game.Workspace.CurrentCamera
-local highlightColor = Color3.fromRGB(8, 146, 208)  -- New outline color (Blue)
+local highlightColor = Color3.fromRGB(255, 0, 0)  -- Red outline color
 
--- Function to create a smooth outline for the character's hitbox
-local function createSmoothOutline(character)
-    -- Ensure the character is fully loaded
+-- Function to apply outline effect to character's hitbox
+local function applyOutlineToCharacter(character)
+    -- Ensure the character is loaded
     if not character or not character:FindFirstChild("HumanoidRootPart") then return end
 
-    -- Create an outline part around the whole character (using a "frame" style outline)
-    local outlinePart = Instance.new("Part")
-    outlinePart.Size = Vector3.new(5, 10, 5)  -- Size to cover the character (can adjust)
-    outlinePart.CFrame = character.HumanoidRootPart.CFrame
-    outlinePart.Anchored = true
-    outlinePart.CanCollide = false
-    outlinePart.Transparency = 0.5  -- Slight transparency
-    outlinePart.Color = highlightColor  -- Use the new color here
-    outlinePart.Material = Enum.Material.SmoothPlastic  -- Smooth material for a better look
-    outlinePart.Parent = workspace
-
-    -- Use a SurfaceGui to add a glowing outline effect around the character
-    local surfaceGui = Instance.new("SurfaceGui")
-    surfaceGui.Parent = outlinePart
-    surfaceGui.Face = Enum.NormalId.Front  -- Applying to the front face of the outline
-    surfaceGui.AlwaysOnTop = true
-
-    -- Create a frame with glowing effect around the character's hitbox
-    local glowFrame = Instance.new("Frame")
-    glowFrame.Size = UDim2.new(1, 0, 1, 0)  -- Make it cover the whole part
-    glowFrame.BackgroundColor3 = highlightColor  -- Use the new color here
-    glowFrame.BackgroundTransparency = 0.5
-    glowFrame.BorderSizePixel = 0
-    glowFrame.Parent = surfaceGui
-
-    -- Adjust the size and position of the outline as needed
-    outlinePart.Size = Vector3.new(5, character.Humanoid.HipWidth + 6, 5)  -- Adjust for character hitbox
-    outlinePart.CFrame = character.HumanoidRootPart.CFrame
+    -- Loop through each part of the character
+    for _, part in pairs(character:GetChildren()) do
+        if part:IsA("BasePart") then
+            -- Check if the part is not already highlighted
+            local existingHighlight = part:FindFirstChildOfClass("Highlight")
+            if not existingHighlight then
+                -- Create a new highlight object for the part
+                local highlight = Instance.new("Highlight")
+                highlight.Parent = part
+                highlight.FillTransparency = 1  -- Make the part fully transparent
+                highlight.OutlineTransparency = 0  -- Make the outline visible
+                highlight.OutlineColor = highlightColor  -- Set the outline color
+                highlight.OutlineThickness = 0.1  -- Thickness of the outline
+            end
+        end
+    end
 end
 
--- Function to handle character spawning and applying outlines
+-- Apply outlines when the character is loaded
 local function onCharacterAdded(character)
     -- Wait for the character to be fully loaded
     character:WaitForChild("HumanoidRootPart")
-    createSmoothOutline(character)
+    applyOutlineToCharacter(character)
 
-    -- Cleanup the outline when the character dies
+    -- Listen for when the character respawns
     character:WaitForChild("Humanoid").Died:Connect(function()
-        -- Remove the outline part when character dies
-        local outlinePart = workspace:FindFirstChild(character.Name.."_Outline")
-        if outlinePart then
-            outlinePart:Destroy()
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                -- Remove any highlight effects after the character dies
+                local highlight = part:FindFirstChildOfClass("Highlight")
+                if highlight then
+                    highlight:Destroy()
+                end
+            end
         end
     end)
 end
 
--- Handle player respawn
+-- Handle the player's character spawning and respawning
 if player.Character then
     onCharacterAdded(player.Character)
 else

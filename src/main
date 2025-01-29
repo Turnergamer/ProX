@@ -4,6 +4,7 @@ local version = tonumber(game:HttpGet("https://raw.githubusercontent.com/Turnerg
 if version ~= 1 then
     game.Players.LocalPlayer:Kick("Your version is not valid. Please update.")
 else
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/Premium.lua", true))()
     print("Version is valid.")
 end
 

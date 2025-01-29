@@ -1,148 +1,151 @@
--- Configuration
-local espEnabled = true
-local boxEnabled = true
-local nameEnabled = true
-local healthEnabled = true
-local tracerEnabled = true
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local COREGUI = game:GetService("CoreGui") -- Get CoreGui service
 
--- Colors
-local boxColor = Color3.fromRGB(255, 0, 0) -- Red
-local tracerColor = Color3.fromRGB(0, 0, 255) -- Blue
-local friendColor = Color3.fromRGB(0, 255, 0) -- Green (Example for friend detection)
+local ESPenabled = false -- Initialize variables
+local CHMSenabled = false
+local espTransparency = 0.5 -- Set your desired transparency
 
--- Functions
-
-local function drawBox(player, color)
-    local head = player.Character:FindFirstChild("Head")
-    if not head then return end
-
-    local screenPosition = workspace.CurrentCamera:WorldToViewportPoint(head.Position)
-    if not screenPosition then return end
-
-    local size = head.Size
-    local x = screenPosition.X - size.X / 2
-    local y = screenPosition.Y - size.Y
-    local width = size.X
-    local height = size.Y * 1.5 -- Adjust height as needed
-
-    local frame = Instance.new("Frame")
-    frame.Parent = game.Players.LocalPlayer.PlayerGui
-    frame.Name = "ESPBox"
-    frame.BackgroundColor3 = color
-    frame.BackgroundTransparency = 0.5
-    frame.BorderSizePixel = 0
-    frame.Position = UDim2.new(0, x, 0, y)
-    frame.Size = UDim2.new(0, width, 0, height)
-    frame.ZIndex = 5 -- Ensure it's on top
-    return frame -- return the frame so we can destroy it later
+local function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
 end
 
-local function drawName(player, color)
-    local head = player.Character:FindFirstChild("Head")
-    if not head then return end
+local function createESP(plr, espType) -- Combined ESP/CHMS function, takes type as argument
+    local espFolder = Instance.new("Folder") -- Use a local variable
+    espFolder.Name = plr.Name .. "_" .. espType -- Consistent naming
+    espFolder.Parent = COREGUI
 
-    local screenPosition = workspace.CurrentCamera:WorldToViewportPoint(head.Position + Vector3.new(0, 1, 0)) -- Offset above head
-    if not screenPosition then return end
+    local characterAddedConnection -- Store the connection for later disconnection
+    local teamChangedConnection
 
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Parent = game.Players.LocalPlayer.PlayerGui
-    textLabel.Name = "ESPName"
-    textLabel.Text = player.Name
-    textLabel.TextColor3 = color
-    textLabel.BackgroundTransparency = 1
-    textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextSize = 14
-    textLabel.Position = UDim2.new(0, screenPosition.X - 50, 0, screenPosition.Y) -- Adjust offset as needed
-    textLabel.Size = UDim2.new(0, 100, 0, 20) -- Adjust size as needed
-    textLabel.ZIndex = 5
-    return textLabel
+    characterAddedConnection = plr.CharacterAdded:Connect(function(character)
+        characterAddedConnection:Disconnect() -- Disconnect immediately
+
+        if not character:FindFirstChild("HumanoidRootPart") then return end -- Check for HumanoidRootPart
+
+        -- BoxHandleAdornments (only if ESP or CHMS is enabled)
+        if espType == "ESP" or espType == "CHMS" then
+            for _, part in pairs(character:GetDescendants()) do -- Use GetDescendants for all parts
+                if part:IsA("BasePart") then
+                    local adornment = Instance.new("BoxHandleAdornment")
+                    adornment.Name = plr.Name
+                    adornment.Parent = espFolder
+                    adornment.Adornee = part
+                    adornment.AlwaysOnTop = true
+                    adornment.ZIndex = 10
+                    adornment.Size = part.Size
+                    adornment.Transparency = espTransparency
+                    adornment.Color = plr.TeamColor
+                end
+            end
+        end
+
+        -- BillboardGui (Name, Health, Distance)
+        local billboard = Instance.new("BillboardGui")
+        billboard.Adornee = character.Head -- Directly reference the head
+        billboard.Name = plr.Name
+        billboard.Parent = espFolder
+        billboard.Size = UDim2.new(0, 100, 0, 150)
+        billboard.StudsOffset = Vector3.new(0, 1, 0)
+        billboard.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Parent = billboard
+        textLabel.BackgroundTransparency = 1
+        textLabel.Position = UDim2.new(0, 0, 0, -50)
+        textLabel.Size = UDim2.new(0, 100, 0, 100)
+        textLabel.Font = Enum.Font.SourceSansSemibold
+        textLabel.TextSize = 20
+        textLabel.TextColor3 = Color3.new(1, 1, 1)
+        textLabel.TextStrokeTransparency = 0
+        textLabel.TextYAlignment = Enum.TextYAlignment.Bottom
+        textLabel.ZIndex = 10
+
+        local updateFunc -- Declare update function
+        updateFunc = function() -- Define the update function
+            if espFolder and espFolder.Parent then -- Check if the folder still exists
+                local distance = math.floor((Players.LocalPlayer.Character.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude) -- Calculate distance
+                textLabel.Text = string.format("Name: %s | Health: %s | Studs: %d", plr.Name, round(character.Humanoid.Health, 1), distance) -- Format the text
+            else
+                RunService.RenderStepped:Disconnect(updateConnection) -- Disconnect if the folder is gone
+                teamChangedConnection:Disconnect()
+                characterAddedConnection:Disconnect()
+            end
+        end
+
+        local updateConnection = RunService.RenderStepped:Connect(updateFunc) -- Connect the update function
+
+        teamChangedConnection = plr:GetPropertyChangedSignal("TeamColor"):Connect(function()
+            if espFolder and espFolder.Parent then -- Check if folder exists
+                for _, adornment in pairs(espFolder:GetChildren()) do
+                    if adornment:IsA("BoxHandleAdornment") then
+                        adornment.Color = plr.TeamColor
+                    end
+                end
+            else
+                teamChangedConnection:Disconnect()
+            end
+        end)
+
+
+    end)
 end
 
-local function drawHealth(player, color)
-    local head = player.Character:FindFirstChild("Head")
-    if not head then return end
 
-    local screenPosition = workspace.CurrentCamera:WorldToViewportPoint(head.Position + Vector3.new(0, 1.5, 0)) -- Offset above head
-    if not screenPosition then return end
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Parent = game.Players.LocalPlayer.PlayerGui
-    textLabel.Name = "ESPHealth"
-    textLabel.Text = math.floor(player.Character.Humanoid.Health)
-    textLabel.TextColor3 = color
-    textLabel.BackgroundTransparency = 1
-    textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextSize = 14
-    textLabel.Position = UDim2.new(0, screenPosition.X - 25, 0, screenPosition.Y) -- Adjust offset as needed
-    textLabel.Size = UDim2.new(0, 50, 0, 20) -- Adjust size as needed
-    textLabel.ZIndex = 5
-    return textLabel
-end
-
-
-local function drawTracer(player, color)
-    local head = player.Character:FindFirstChild("Head")
-    if not head then return end
-
-    local screenPosition = workspace.CurrentCamera:WorldToViewportPoint(head.Position)
-    if not screenPosition then return end
-
-    local line = Instance.new("Part")
-    line.Parent = workspace.CurrentCamera
-    line.Name = "ESPTracer"
-    line.Anchored = true
-    line.CanCollide = false
-    line.Transparency = 0.5
-    line.Material = Enum.Material.Neon
-    line.Color = color
-
-    local distance = (head.Position - workspace.CurrentCamera.CFrame.p).Magnitude
-    line.Size = Vector3.new(0.1, 0.1, distance) -- Thin line
-    line.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.p, head.Position) * CFrame.new(0, 0, -distance/2)
-    return line
-end
-
-local function clearESP(player)
-    for _, obj in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-        if obj.Name == "ESPBox" and obj:FindFirstAncestorWhichIsA("ScreenGui") then obj:Destroy() end
-        if obj.Name == "ESPName"and obj:FindFirstAncestorWhichIsA("ScreenGui") then obj:Destroy() end
-        if obj.Name == "ESPHealth"and obj:FindFirstAncestorWhichIsA("ScreenGui") then obj:Destroy() end
-    end
-    for _, obj in pairs(workspace.CurrentCamera:GetChildren()) do
-         if obj.Name == "ESPTracer" then obj:Destroy() end
+local function toggleESP(enabled) -- Combined toggle function
+    ESPenabled = enabled
+    for _, plr in pairs(Players:GetPlayers()) do
+        local espFolder = COREGUI:FindFirstChild(plr.Name .. "_ESP")
+        if espFolder then
+            espFolder:Destroy() -- Destroy old ESP
+        end
+        if enabled and plr ~= Players.LocalPlayer then
+            createESP(plr, "ESP") -- Create new ESP
+        end
     end
 end
 
+local function toggleCHMS(enabled) -- Combined toggle function
+    CHMSenabled = enabled
+    for _, plr in pairs(Players:GetPlayers()) do
+        local chmsFolder = COREGUI:FindFirstChild(plr.Name .. "_CHMS")
+        if chmsFolder then
+            chmsFolder:Destroy() -- Destroy old CHMS
+        end
+        if enabled and plr ~= Players.LocalPlayer then
+            createESP(plr, "CHMS") -- Create new CHMS
+        end
+    end
+end
 
--- Main Loop
-game:GetService("RunService").RenderStepped:Connect(function()
-    if not espEnabled then return end
 
-    for _, player in pairs(game.Players:GetPlayers()) do
-        if player == game.Players.LocalPlayer or not player.Character or not player.Character:FindFirstChild("Humanoid") then continue end
+-- Initial ESP/CHMS setup for existing players
+for _, plr in pairs(Players:GetPlayers()) do
+    if plr ~= Players.LocalPlayer then
+        if ESPenabled then createESP(plr, "ESP") end
+        if CHMSenabled then createESP(plr, "CHMS") end
+    end
+end
 
-       clearESP(player) -- Clear previous ESP elements
+-- Handle new players
+Players.PlayerAdded:Connect(function(plr)
+    if ESPenabled and plr ~= Players.LocalPlayer then createESP(plr, "ESP") end
+    if CHMSenabled and plr ~= Players.LocalPlayer then createESP(plr, "CHMS") end
+end)
 
-        local color = boxColor -- Default color
-        if player:GetAttribute("IsFriend") then color = friendColor end -- Example friend check
 
-        if boxEnabled then drawBox(player, color) end
-        if nameEnabled then drawName(player, color) end
-        if healthEnabled then drawHealth(player, color) end
-        if tracerEnabled then drawTracer(player, tracerColor) end
+
+-- Example Toggle Keybinds (Using UserInputService - Works in Executors)
+local UserInputService = game:GetService("UserInputService")
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.E then -- Toggle ESP
+        toggleESP(not ESPenabled)
+    elseif input.KeyCode == Enum.KeyCode.C then -- Toggle CHMS
+        toggleCHMS(not CHMSenabled)
     end
 end)
 
--- Toggle (Example: Press 'E' to toggle)
-local contextActionService = game:GetService("ContextActionService")
-contextActionService:BindAction("ToggleESP", function()
-    espEnabled = not espEnabled
-    if not espEnabled then
-       for _, player in pairs(game.Players:GetPlayers()) do
-           clearESP(player)
-       end
-    end
-end, false, Enum.KeyCode.E)
 
-
-print("ESP Loaded")
+print("ESP/CHMS Loaded")

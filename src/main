@@ -111,6 +111,47 @@ MovementText.Parent = VisualsTab
 
 
 
+-- FOV Slider UI Setup (same as previous)
+
+
+
+-- Make the slider button draggable
+
+
+
+
+
+
+-- Function to calculate Focus Distance based on camera's frame
+function GetFocusDistance(cameraFrame)
+	local znear = 0.1
+	local viewport = game.Workspace.CurrentCamera.ViewportSize
+	local projy = 2 * math.tan(game.Workspace.CurrentCamera.FieldOfView / 2)
+	local projx = viewport.x / viewport.y * projy
+	local fx = cameraFrame.rightVector
+	local fy = cameraFrame.upVector
+	local fz = cameraFrame.lookVector
+
+	local minVect = Vector3.new()
+	local minDist = 512
+
+	for x = 0, 1, 0.5 do
+		for y = 0, 1, 0.5 do
+			local cx = (x - 0.5) * projx
+			local cy = (y - 0.5) * projy
+			local offset = fx * cx - fy * cy + fz
+			local origin = cameraFrame.p + offset * znear
+			local _, hit = workspace:FindPartOnRay(Ray.new(origin, offset.unit * minDist))
+			local dist = (hit - origin).magnitude
+			if minDist > dist then
+				minDist = dist
+				minVect = offset.unit
+			end
+		end
+	end
+
+	return fz:Dot(minVect) * minDist
+end
 
 
 
@@ -168,12 +209,12 @@ SPEEDHACK.TextScaled = true
 SPEEDHACK.BorderColor3 = Color3.fromRGB(8, 146, 208)
 SPEEDHACK.Font = Enum.Font.GothamBold
 SPEEDHACK.Parent = CombatTab
-	
-	
+
+
 tpwalking = false  -- Start with tpwalking off
 
-	
-	
+
+
 SPEEDHACK.MouseButton1Click:Connect(function()
 	tpwalking = not tpwalking  -- Toggle tpwalking state only when the button is clicked
 end)
@@ -252,6 +293,17 @@ CreditTitle.TextScaled = true
 CreditTitle.Font = Enum.Font.GothamBold
 CreditTitle.Parent = CreditsTab
 
+local CreditTitle = Instance.new("TextLabel")
+CreditTitle.Name = "CreditText"
+CreditTitle.Size = UDim2.new(0.8, 0, 0.2, 0)
+CreditTitle.Position = UDim2.new(0.1, 0, 0.4, 0)
+CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CreditTitle.Text = "https://discord.gg/CTdCRgpZvS"
+CreditTitle.TextColor3 = Color3.fromRGB(8, 146, 208)
+CreditTitle.TextScaled = true
+CreditTitle.Font = Enum.Font.GothamBold
+CreditTitle.Parent = CreditsTab
+
 local TitleLabel = Instance.new("TextLabel")
 TitleLabel.Name = "TitleLabel"
 TitleLabel.Size = UDim2.new(1, 0, 0.1, 0)
@@ -269,8 +321,8 @@ CreditText.Name = "CreditText"
 CreditText.Size = UDim2.new(0.8, 0, 0.2, 0)
 CreditText.Position = UDim2.new(0.1, 0, 0, 0)
 CreditText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-CreditText.Text = "ProX"
-TitleLabel.TextColor3 = Color3.fromRGB(8, 146, 208)
+CreditText.Text = "ProX Credits"
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 CreditText.TextScaled = true
 CreditText.Font = Enum.Font.ArialBold
 CreditText.Parent = CreditsTab

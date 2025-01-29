@@ -20,14 +20,16 @@ local function createESP(plr)
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.Font = Enum.Font.SourceSansBold
     textLabel.TextSize = 14
-    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     textLabel.TextStrokeTransparency = 0
 
     local function updateText()
         if plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") then
             local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
-            local armor = plr:FindFirstChild("Data") and plr.Data:FindFirstChild("Armor") and plr.Data.Armor.Value 
+            local armor = plr:FindFirstChild("Data") and plr.Data:FindFirstChild("Armor") and plr.Data.Armor.Value or 0
+            local combatLog = plr:FindFirstChild("Data") and plr.Data:FindFirstChild("CombatLog") and plr.Data.CombatLog.Value
+            
             textLabel.Text = string.format("%s | Health: %d | Armor: %d", plr.Name, humanoid.Health, armor)
+            textLabel.TextColor3 = combatLog and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(0, 255, 0)
         else
             textLabel.Text = plr.Name
         end

@@ -165,8 +165,7 @@ MoneyGenButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 MoneyGenButton.Text = "Money Generator | Crates"
 MoneyGenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 MoneyGenButton.TextScaled = true
-MoneyGenButton.BackgroundTransparency = 1 
-MoneyGenButton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+MoneyGenButton.BorderColor3 = Color3.fromRGB(8, 146, 208)
 MoneyGenButton.Font = Enum.Font.GothamBold
 MoneyGenButton.Parent = MiscTab
 

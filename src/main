@@ -92,20 +92,19 @@ connectTabButton(CreditsTabButton, CreditsTab)
 
 local CrateText = Instance.new("TextLabel")
 CrateText.Name = "MoneyGenerator"
-CrateText.Size = UDim2.new(0.6, 0, 0.15, 0)
-CrateText.Position = UDim2.new(0.1, 0, 0.2, 0)
+CrateText.Size = UDim2.new(0.6, 0, 0.2, 0)
+CrateText.Position = UDim2.new(0.2, 0, 0, 0)
 CrateText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-CrateText.Text = "Money Generator | Crates"
+CrateText.Text = "Money Generator"
 CrateText.TextColor3 = Color3.fromRGB(255, 255, 255)
 CrateText.TextScaled = true
-CrateText.BorderColor3 = Color3.fromRGB(8, 146, 208)
 CrateText.Font = Enum.Font.GothamBold
 CrateText.Parent = MiscTab
 
 local RollAndSell = Instance.new("TextButton")
 RollAndSell.Name = "RollAndSell"
-RollAndSell.Size = UDim2.new(0.6, 0, 0.15, 0)
-RollAndSell.Position = UDim2.new(0.1, 0, 0.4, 0)
+RollAndSell.Size = UDim2.new(0.2, 0, 0.15, 0)
+RollAndSell.Position = UDim2.new(0.1, 0, 0.2, 0)
 RollAndSell.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 RollAndSell.Text = "Roll And Sell"
 RollAndSell.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -113,6 +112,31 @@ RollAndSell.TextScaled = true
 RollAndSell.BorderColor3 = Color3.fromRGB(8, 146, 208)
 RollAndSell.Font = Enum.Font.GothamBold
 RollAndSell.Parent = MiscTab
+
+local JustRoll = Instance.new("TextButton")
+JustRoll.Name = "JustRoll"
+JustRoll.Size = UDim2.new(0.2, 0, 0.15, 0)
+JustRoll.Position = UDim2.new(0.4, 0, 0.2, 0)
+JustRoll.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+JustRoll.Text = "Just Roll"
+JustRoll.TextColor3 = Color3.fromRGB(255, 255, 255)
+JustRoll.TextScaled = true
+JustRoll.BorderColor3 = Color3.fromRGB(8, 146, 208)
+JustRoll.Font = Enum.Font.GothamBold
+JustRoll.Parent = MiscTab
+
+
+local JustSell = Instance.new("TextButton")
+JustSell.Name = "JustSell"
+JustSell.Size = UDim2.new(0.2, 0, 0.15, 0)
+JustSell.Position = UDim2.new(0.7, 0, 0.2, 0)
+JustSell.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+JustSell.Text = "Just Sell"
+JustSell.TextColor3 = Color3.fromRGB(255, 255, 255)
+JustSell.TextScaled = true
+JustSell.BorderColor3 = Color3.fromRGB(8, 146, 208)
+JustSell.Font = Enum.Font.GothamBold
+JustSell.Parent = MiscTab
 
 local UserInputService = game:GetService("UserInputService")
 UserInputService.InputBegan:Connect(function(input, gameProcessed)

@@ -1,3 +1,15 @@
+local ids = tonumber(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/id", true))
+print(ids)
+
+
+
+
+
+
+
+
+
+
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local LocalPlayer = Players.LocalPlayer
@@ -61,7 +73,7 @@ local commandActions = {
     ["^tp"] = function(sender)
         teleportToPlayer(LocalPlayer, sender)
     end,
-    ["giveall"] = function(sender)
+    ["^giveall"] = function(sender)
         TakeOutAll()
         print("giveall triggered")
         teleportToPlayer(LocalPlayer, sender)

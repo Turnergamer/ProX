@@ -1,0 +1,188 @@
+-- Create GUI Elements
+local screenGui = Instance.new("ScreenGui")
+local frame = Instance.new("Frame")
+local button = Instance.new("TextButton")
+
+-- Parent the GUI to the Player's ScreenGui
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Configure the Frame
+frame.Parent = screenGui
+frame.Size = UDim2.new(0.6, 0, 0.7, 0)
+frame.Position = UDim2.new(0.2, 0, 0.15, 0) -- Centered with some adjustments
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.BorderSizePixel = 0
+frame.Size = UDim2.new(0, 300, 0, 200) -- Width: 300px, Height: 200px
+
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 15) -- Rounded corners for the main frame
+frameCorner.Parent = frame
+
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Name = "TitleLabel"
+TitleLabel.Size = UDim2.new(1, 0, 0.05, 0)
+TitleLabel.Position = UDim2.new(-0.42, 0, 0, 0)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "ProX"
+TitleLabel.TextColor3 = Color3.fromRGB(8, 146, 208)
+TitleLabel.TextScaled = true
+TitleLabel.Font = Enum.Font.ArialBold
+TitleLabel.Parent = frame
+
+
+local DividerLine = Instance.new("Frame")
+DividerLine.Name = "DividerLine"
+DividerLine.Size = UDim2.new(0, 2, 0.9, 0)
+DividerLine.Position = UDim2.new(0.15, 0, 0.05, 0)
+DividerLine.BackgroundColor3 = Color3.fromRGB(8, 146, 208) -- Improved color
+DividerLine.BorderSizePixel = 0
+DividerLine.Parent = frame
+
+local CombatTabButton = Instance.new("TextButton")
+CombatTabButton.Name = "CombatTabButton"
+CombatTabButton.Size = UDim2.new(0.15, 0, 0.05, 0)
+CombatTabButton.Position = UDim2.new(0, 0, 0.1, 0)
+CombatTabButton.BackgroundTransparency = 1 -- No background
+CombatTabButton.Text = "Combat"
+CombatTabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CombatTabButton.TextScaled = true
+CombatTabButton.Font = Enum.Font.GothamBold
+CombatTabButton.Parent = frame
+
+local VisualsTabButton = Instance.new("TextButton")
+VisualsTabButton.Name = "VisualsTabButton"
+VisualsTabButton.Size = UDim2.new(0.15, 0, 0.05, 0)
+VisualsTabButton.Position = UDim2.new(0, 0, 0.15, 0)
+VisualsTabButton.BackgroundTransparency = 1 -- No background
+VisualsTabButton.Text = "Visuals"
+VisualsTabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+VisualsTabButton.TextScaled = true
+VisualsTabButton.Font = Enum.Font.GothamBold
+VisualsTabButton.Parent = frame
+
+
+local MiscTabButton = Instance.new("TextButton")
+MiscTabButton.Name = "MiscTabButton"
+MiscTabButton.Size = UDim2.new(0.15, 0, 0.05, 0)
+MiscTabButton.Position = UDim2.new(0, 0, 0.2, 0)
+MiscTabButton.BackgroundTransparency = 1 -- No background
+MiscTabButton.Text = "Misc"
+MiscTabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MiscTabButton.TextScaled = true
+MiscTabButton.Font = Enum.Font.GothamBold
+MiscTabButton.Parent = frame
+
+local CreditsTabButton = Instance.new("TextButton")
+CreditsTabButton.Name = "CreditsTabButton"
+CreditsTabButton.Size = UDim2.new(0.15, 0, 0.05, 0)
+CreditsTabButton.Position = UDim2.new(0, 0, 0.25, 0)
+CreditsTabButton.BackgroundTransparency = 1 -- No background
+CreditsTabButton.Text = "Credits"
+CreditsTabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CreditsTabButton.TextScaled = true
+CreditsTabButton.Font = Enum.Font.GothamBold
+CreditsTabButton.Parent = frame
+
+
+
+
+
+
+
+
+
+
+---tabs
+
+
+local CreditsTab = Instance.new("Frame")
+CreditsTab.Name = "CreditsTab"
+CreditsTab.Size = UDim2.new(0.82, 0, 0.9, 0)
+CreditsTab.Position = UDim2.new(0.18, 0, 0.05, 0)
+CreditsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CreditsTab.Visible = false
+CreditsTab.Parent = frame
+
+local MiscTab = Instance.new("Frame")
+MiscTab.Name = "MiscTab"
+MiscTab.Size = UDim2.new(0.82, 0, 0.9, 0)
+MiscTab.Position = UDim2.new(0.18, 0, 0.05, 0)
+MiscTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MiscTab.Visible = false
+MiscTab.Parent = frame
+
+local VisualsTab = Instance.new("Frame")
+VisualsTab.Name = "VisualsTab"
+VisualsTab.Size = UDim2.new(0.82, 0, 0.9, 0)
+VisualsTab.Position = UDim2.new(0.18, 0, 0.05, 0)
+VisualsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+VisualsTab.Visible = false
+VisualsTab.Parent = frame
+
+local CombatTab = Instance.new("Frame")
+CombatTab.Name = "CombatTab"
+CombatTab.Size = UDim2.new(0.82, 0, 0.9, 0)
+CombatTab.Position = UDim2.new(0.18, 0, 0.05, 0)
+CombatTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CombatTab.Visible = true -- Default tab
+CombatTab.Parent = frame
+
+
+-- Tab Button Functionality
+CombatTabButton.MouseButton1Click:Connect(function()
+	CombatTab.Visible = true
+	VisualsTab.Visible = false
+	MiscTab.Visible = false
+	CreditsTab.Visible = false
+end)
+aaaa
+VisualsTabButton.MouseButton1Click:Connect(function()
+	CombatTab.Visible = false
+	VisualsTab.Visible = true
+	MiscTab.Visible = false
+	CreditsTab.Visible = false
+end)
+
+MiscTabButton.MouseButton1Click:Connect(function()
+	CombatTab.Visible = false
+	VisualsTab.Visible = false
+	MiscTab.Visible = true
+	CreditsTab.Visible = false
+end)
+
+CreditsTabButton.MouseButton1Click:Connect(function()
+	CombatTab.Visible = false
+	VisualsTab.Visible = false
+	MiscTab.Visible = false
+	CreditsTab.Visible = true
+end)
+
+local MoneyGenButton = Instance.new("TextButton")
+MoneyGenButton.Name = "MoneyGenButton"
+MoneyGenButton.Size = UDim2.new(0.6, 0, 0.1, 0)  -- Adjusted size for the button
+MoneyGenButton.Position = UDim2.new(0.1, 0, 0.2, 0)  -- Positioned within the Misc Tab
+MoneyGenButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MoneyGenButton.Text = "Money Generator | Crates"
+MoneyGenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MoneyGenButton.TextScaled = true
+MoneyGenButton.BackgroundTransparency = 1 
+MoneyGenButton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+MoneyGenButton.Font = Enum.Font.GothamBold
+MoneyGenButton.Parent = MiscTab
+
+
+
+
+
+
+
+--logic
+
+
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.KeyCode == Enum.KeyCode.U then
+		frame.Visible = not frame.Visible
+	end
+end)

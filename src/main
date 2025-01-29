@@ -1,15 +1,6 @@
 -- Create GUI Elements
-local version = tonumber(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/Version", true))
 
-if version ~= 1 then
-    game.Players.LocalPlayer:Kick("Your version is not valid. Please update.")
-else
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/Premium.lua", true))()
-    print("Version is valid.")
-end
-
-
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/VersionCheck.lua", true))()
 
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")

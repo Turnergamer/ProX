@@ -26,7 +26,7 @@ local function createESP(plr)
     local function updateText()
         if plr.Character and plr.Character:FindFirstChildOfClass("Humanoid") then
             local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
-            local armor = plr:FindFirstChild("Data") and plr.Data:FindFirstChild("Armor") and plr.Data.Armor.Value or 0
+            local armor = plr:FindFirstChild("Data") and plr.Data:FindFirstChild("Armor") and plr.Data.Armor.Value 
             textLabel.Text = string.format("%s | Health: %d | Armor: %d", plr.Name, humanoid.Health, armor)
         else
             textLabel.Text = plr.Name

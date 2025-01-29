@@ -496,22 +496,32 @@ end)
 RollAndSell.MouseButton1Click:Connect(function()
 	startRollAndSellLoop()
 end)
+
+
+
+
 local tpwalking = false  -- Start with tpwalking off
+local Speedhack = game:GetService("ReplicatedStorage"):WaitForChild("Speedhack") -- Assuming Speedhack is a button or part
 
 Speedhack.MouseButton1Click:Connect(function()
+    -- Toggle tpwalking on and off when button is clicked
+    tpwalking = not tpwalking
 
-	game:GetService("RunService").Heartbeat:Connect(function(delta)
-		local chr = game.Players.LocalPlayer.Character
-		local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-	
-		if hum and hum.MoveDirection.Magnitude > 0 then
-			if tpwalking then
-				local tpValue = 5  -- Always use 5 as the teleport distance
-				chr:TranslateBy(hum.MoveDirection * tpValue * delta * 10)  -- Apply teleportation
-			end
-		end
-	
-		-- Toggle tpwalking on and off each time the script runs
-		tpwalking = not tpwalking
-	end)
+    -- Check the player's character and humanoid
+    local chr = game.Players.LocalPlayer.Character
+    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+
+    if hum then
+        -- Connect to Heartbeat only when tpwalking is enabled
+        if tpwalking then
+            game:GetService("RunService").Heartbeat:Connect(function(delta)
+                -- Ensure the player is moving
+                if hum.MoveDirection.Magnitude > 0 then
+                    local tpValue = 5  -- Use a fixed teleport distance
+                    -- Apply teleportation based on movement direction
+                    chr:TranslateBy(hum.MoveDirection * tpValue * delta * 10)
+                end
+            end)
+        end
+    end
 end)

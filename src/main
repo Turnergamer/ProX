@@ -550,8 +550,9 @@ end
 
 local function startRollLoop()
 	game:GetService("RunService").Heartbeat:Connect(function()
+		wait(5)  -- Adjust the delay as needed for your loop frequency
+
 		invokeRollRemote()
-		wait(1000)  -- Adjust the delay as needed for your loop frequency
 	end)
 end
 
@@ -566,9 +567,10 @@ end
 -- Roll and Sell function that loops both roll and sell
 local function startRollAndSellLoop()
 	game:GetService("RunService").Heartbeat:Connect(function()
+		wait(5)  -- Adjust the delay as needed for your loop frequency
+
 		invokeRollRemote()
 		invokeSellRemote()
-		wait(1000)  -- Adjust the delay as needed for your loop frequency
 	end)
 end
 

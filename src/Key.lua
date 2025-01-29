@@ -85,6 +85,9 @@ enterButton.MouseButton1Click:Connect(function()
         -- You can add any action here when the key is valid
         keyInputBox.Text = "Key Accepted"
         keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
+        wait(1) -- Optional delay before destroying
+        screenGui:Destroy()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/main", true))()
     else
         print("Invalid key: " .. key)
         -- You can add any action here when the key is invalid

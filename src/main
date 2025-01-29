@@ -183,7 +183,22 @@ JustSell.Font = Enum.Font.GothamBold
 JustSell.Parent = MiscTab
 
 --MISC
+--CREDITS--
 
+local CreditText = Instance.new("TextLabel")
+CreditText.Name = "Credits"
+CreditText.Size = UDim2.new(0.6, 0, 0.2, 0)
+CreditText.Position = UDim2.new(0.2, 0, 0, 0)
+CreditText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CreditText.Text = "Credits"
+CreditText.TextColor3 = Color3.fromRGB(255, 255, 255)
+CreditText.TextScaled = true
+CreditText.Font = Enum.Font.GothamBold
+CreditText.Parent = CreditsTab
+
+
+
+--credits
 local UserInputService = game:GetService("UserInputService")
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if gameProcessed then return end
@@ -345,7 +360,7 @@ GunOptionText.Name = "MoneyGenerator"
 GunOptionText.Size = UDim2.new(0.6, 0, 0.2, 0)
 GunOptionText.Position = UDim2.new(0.2, 0, 0, 0)
 GunOptionText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-GunOptionText.Text = "Gun Options"
+GunOptionText.Text = "Silent Aim"
 GunOptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
 GunOptionText.TextScaled = true
 GunOptionText.Font = Enum.Font.GothamBold
@@ -618,3 +633,86 @@ userInputService.InputEnded:Connect(function(input, gameProcessed)
 	end
 end)
 --
+
+
+
+
+
+
+
+
+
+--args
+
+
+
+local function invokeRollRemote()
+	local remoteFunctionArgs = {
+		[1] = "PremRollSkin10"
+	}
+	game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(remoteFunctionArgs))
+end
+
+
+local function invokeSellRemote()
+	local skins = {
+		"Hot Pink", "Agent", "Checkered", "Grey Camo", "Rusted Red",
+		"Green Camo", "Orange Crush", "Painted Yellow", "Painted Orange",
+		"Damaged", "Earth", "Painted Blue", "Painted Green", "Painted Red", 
+		"Painted Pink", "Painted Purple", "Green Sentry", "Pink Sentry", 
+		"Red Sentry", "Royal", "Fallen Agent"
+	}
+	local guns = {"SMG", "LMG", "Double Barrel Shotgun", "Revolver", "AK47", "Turret", "Shotgun"}
+
+	for _, gun in ipairs(guns) do
+		for _, skin in ipairs(skins) do
+			-- Invoke sell remote function twice for painted skins
+			local eventArgs = {
+				[1] = "SellSkin",
+				[2] = gun,
+				[3] = skin
+			}
+			game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(eventArgs))
+			game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(eventArgs))
+		end
+	end
+end
+
+local function startRollLoop()
+	game:GetService("RunService").Heartbeat:Connect(function()
+		invokeRollRemote()
+		wait(0.3)  -- Adjust the delay as needed for your loop frequency
+	end)
+end
+
+-- Sell function that loops indefinitely
+local function startSellLoop()
+	game:GetService("RunService").Heartbeat:Connect(function()
+		invokeSellRemote()
+		wait(0.5)  -- Adjust the delay as needed for your loop frequency
+	end)
+end
+
+-- Roll and Sell function that loops both roll and sell
+local function startRollAndSellLoop()
+	game:GetService("RunService").Heartbeat:Connect(function()
+		invokeRollRemote()
+		invokeSellRemote()
+		wait(0.3)  -- Adjust the delay as needed for your loop frequency
+	end)
+end
+
+
+JustRoll.MouseButton1Click:Connect(function()
+	startRollLoop()
+end)
+
+-- Button "Sell All" logic: Start only the sell loop
+JustSell.MouseButton1Click:Connect(function()
+	startSellLoop()
+end)
+
+-- Button "Roll and Sell" logic: Start both the roll and sell loops
+RollAndSell.MouseButton1Click:Connect(function()
+	startRollAndSellLoop()
+end)

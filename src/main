@@ -175,7 +175,7 @@ MoneyGenButton.Parent = MiscTab
 
 
 
---logic
+--logic code
 
 
 local UserInputService = game:GetService("UserInputService")

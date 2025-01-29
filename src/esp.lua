@@ -42,7 +42,6 @@ local function createESP(plr)
     end
 
     RunService.RenderStepped:Connect(updateText)
-    if not plr.Character then return end
     
     local highlight = Instance.new("Highlight")
     highlight.Name = plr.Name .. "_ESP"
@@ -60,7 +59,7 @@ local function createESP(plr)
     end
     
     updateHighlight()
-    
+
     plr.CharacterAdded:Connect(function()
         if ESPenabled then
             updateHighlight()
@@ -102,9 +101,13 @@ end
 
 -- Ensure new players get ESP as well
 Players.PlayerAdded:Connect(function(player)
-    if ESPenabled then
-        -- Wait until the player's character is added to the game before creating the ESP
-        player.CharacterAdded:Wait()
-        createESP(player)
-    end
+    player.CharacterAdded:Connect(function(character)
+        if ESPenabled then
+            -- Wait for the character's head to be available before creating ESP
+            local head = character:WaitForChild("Head", 10)
+            if head then
+                createESP(player)
+            end
+        end
+    end)
 end)

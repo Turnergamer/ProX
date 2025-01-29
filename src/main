@@ -93,6 +93,34 @@ connectTabButton(VisualsTabButton, VisualsTab)
 connectTabButton(MiscTabButton, MiscTab)
 connectTabButton(CreditsTabButton, CreditsTab)
 
+---visuals
+
+
+-- Movement Text in Combat Tab
+local MovementText = Instance.new("TextLabel")
+MovementText.Name = "MovementText"
+MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
+MovementText.Position = UDim2.new(0.15, 0, 0, 0)
+MovementText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MovementText.Text = "Fov"
+MovementText.TextColor3 = Color3.fromRGB(255, 255, 255)
+MovementText.TextScaled = true
+MovementText.Font = Enum.Font.GothamBold
+MovementText.Parent = VisualsTab
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Combat Tab Elements
 local SilentAimText = Instance.new("TextLabel")
 SilentAimText.Name = "SilentAimText"

@@ -63,6 +63,9 @@ local function createTab(name)
 	tab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	tab.Visible = false
 	tab.Parent = frame
+	local frameCorner = Instance.new("UICorner")
+	frameCorner.CornerRadius = UDim.new(0, 15)
+	frameCorner.Parent = tab
 	return tab
 end
 

@@ -496,3 +496,7 @@ end)
 RollAndSell.MouseButton1Click:Connect(function()
 	startRollAndSellLoop()
 end)
+
+Speedhack.MouseButton1Click:Connect(function()
+	
+end)

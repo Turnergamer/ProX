@@ -47,7 +47,9 @@ keyInputBox.TextScaled = true
 keyInputBox.Font = Enum.Font.Arial
 keyInputBox.Parent = frame
 keyInputBox.Text = "Enter Key Here"
-
+keyInputBox.ClearTextOnFocus = true
+keyInputBox.TextScaled = true  -- Disable TextScaled to use TextSize
+keyInputBox.TextSize = 24 
 local keyBoxCorner = Instance.new("UICorner")
 keyBoxCorner.CornerRadius = UDim.new(0, 10)
 keyBoxCorner.Parent = keyInputBox

@@ -2,6 +2,25 @@
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/VersionCheck.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/Premium.lua", true))()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local button = Instance.new("TextButton")
@@ -102,8 +121,8 @@ connectTabButton(CreditsTabButton, CreditsTab)
 -- Movement Text in Combat Tab
 local MovementText = Instance.new("TextLabel")
 MovementText.Name = "MovementText"
-MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
-MovementText.Position = UDim2.new(0.15, 0, 0, 0)
+MovementText.Size = UDim2.new(0.2, 0, 0.2, 0)
+MovementText.Position = UDim2.new(0, 0, 0, 0)
 MovementText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 MovementText.Text = "ESP"
 MovementText.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -116,7 +135,7 @@ MovementText.Parent = VisualsTab
 local ESPBUTTON = Instance.new("TextButton")
 ESPBUTTON.Name = "SilentAimButton"
 ESPBUTTON.Size = UDim2.new(0.2, 0, 0.15, 0)
-ESPBUTTON.Position = UDim2.new(0.4, 0, 0.2, 0)
+ESPBUTTON.Position = UDim2.new(0, 0, 0.2, 0)
 ESPBUTTON.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 ESPBUTTON.Text = "Enable ESP"
 ESPBUTTON.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -138,6 +157,7 @@ end)
 
 
 
+-- Now you can call the function and it will use the adjusted FOV value
 
 
 
@@ -145,10 +165,44 @@ end)
 
 
 
+local FOVText = Instance.new("TextLabel")
+FOVText.Name = "MovementText"
+FOVText.Size = UDim2.new(0.2, 0, 0.2, 0)
+FOVText.Position = UDim2.new(0, 0, 0.4, 0)
+FOVText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+FOVText.Text = "FOV"
+FOVText.TextColor3 = Color3.fromRGB(255, 255, 255)
+FOVText.TextScaled = true
+FOVText.Font = Enum.Font.GothamBold
+FOVText.Parent = VisualsTab
 
+local FovButton = Instance.new("TextButton")
+FovButton.Name = "SilentAimButton"
+FovButton.Size = UDim2.new(0.2, 0, 0.15, 0)
+FovButton.Position = UDim2.new(0, 0, 0.6, 0)
+FovButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+FovButton.Text = "Enable FOV"
+FovButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+FovButton.TextScaled = true
+FovButton.BorderColor3 = Color3.fromRGB(8, 146, 208)
+FovButton.Font = Enum.Font.GothamBold
+FovButton.Parent = VisualsTab
 
+local fov = false -- Start with FOV disabled
 
-
+FovButton.MouseButton1Click:Connect(function()
+	if fov then
+		-- If FOV is enabled, set it to default (70)
+		workspace.CurrentCamera.FieldOfView = 70
+		FovButton.Text = "Enable FOV" -- Change button text
+	else
+		-- If FOV is disabled, set it to 120
+		workspace.CurrentCamera.FieldOfView = 120
+		FovButton.Text = "Disable FOV" -- Change button text
+	end
+	-- Toggle the state of FOV
+	fov = not fov
+end)
 
 -- Combat Tab Elements
 local SilentAimText = Instance.new("TextLabel")

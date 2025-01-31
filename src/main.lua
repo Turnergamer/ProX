@@ -709,3 +709,36 @@ end)
 
 -- Button cli
 
+-- Create ScreenGui and Frame
+local ascreenGui = Instance.new("ScreenGui")
+local closeopen = Instance.new("Frame")
+
+-- Parent the GUI to the Player's PlayerGui
+ascreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Set up the frame (for closing/opening)
+closeopen.Size = UDim2.new(0.4, 0, 0.4, 0)  -- Set frame size
+closeopen.Position = UDim2.new(0.3, 0, 0.3, 0)  -- Position it in the middle
+closeopen.BackgroundColor3 = Color3.fromRGB(0, 0, 0)  -- Set frame color
+closeopen.Visible = false  -- Initially hidden
+closeopen.Parent = ascreenGui
+
+-- Create the Close/Open button
+local button = Instance.new("TextButton")
+button.Name = "Close/Open"
+button.Size = UDim2.new(0.15, 0, 0.08, 0)
+button.Position = UDim2.new(0, 0, 1, -40)  -- Position the button at the bottom of the screen
+button.BackgroundTransparency = 1
+button.Text = "Close/Open"
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.TextScaled = true
+button.Font = Enum.Font.GothamBold
+button.Parent = ascreenGui
+
+-- Function to toggle the frame visibility
+local function toggleFrameVisibility()
+	frame.Visible = not frame.Visible  -- Toggle visibility
+end
+
+-- Connect the button click to the function
+button.MouseButton1Click:Connect(toggleFrameVisibility)

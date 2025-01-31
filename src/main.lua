@@ -659,7 +659,7 @@ local function startRollLoop()
 	coroutine.wrap(function()
 		while true do
 			invokeRollRemote()
-			wait(200)
+			wait(60)
 
 
 		end
@@ -683,7 +683,7 @@ local function startRollAndSellLoop()
 
 			invokeRollRemote()
 			invokeSellRemote()
-			wait(200)  -- Increased wait time to 1 second for selling
+			wait(60)  -- Increased wait time to 1 second for selling
 		end
 	end)()
 end

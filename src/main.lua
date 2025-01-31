@@ -655,52 +655,55 @@ local function invokeSellRemote()
 	end
 end
 
+-- Slowing down the roll loop by using a while loop and wait()
 local function startRollLoop()
-	game:GetService("RunService").Heartbeat:Connect(function()
-		wait(10)  -- Increased wait time to 10 seconds
-
-		invokeRollRemote()
-	end)
+	coroutine.wrap(function()
+		while true do
+			wait(10)  -- Increased wait time to 10 seconds between rolls
+			invokeRollRemote()
+		end
+	end)()
 end
 
--- Slowing down the sell loop by increasing the wait time
+-- Slowing down the sell loop by using a while loop and wait()
 local function startSellLoop()
-	game:GetService("RunService").Heartbeat:Connect(function()
-		invokeSellRemote()
-		wait(1)  -- Increased wait time to 1 second
-	end)
+	coroutine.wrap(function()
+		while true do
+			invokeSellRemote()
+			wait(0.2)  -- Increased wait time to 1 second between sells
+		end
+	end)()
 end
 
--- Slowing down both roll and sell loop by adjusting both wait times
+-- Slowing down both roll and sell loop by using a while loop and wait()
 local function startRollAndSellLoop()
-	game:GetService("RunService").Heartbeat:Connect(function()
-		wait(10)  -- Increased wait time to 10 seconds for roll
-
-		invokeRollRemote()
-		invokeSellRemote()
-		wait(1)  -- Increased wait time to 1 second for sell
-	end)
+	coroutine.wrap(function()
+		while true do
+			wait(10)  -- Increased wait time to 10 seconds for roll
+			invokeRollRemote()
+			invokeSellRemote()
+			wait(1)  -- Increased wait time to 1 second for selling
+		end
+	end)()
 end
 
 JustRoll.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
-
 	startRollLoop()
 end)
 
 -- Button "Sell All" logic: Start only the sell loop
 JustSell.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
-
 	startSellLoop()
 end)
 
 -- Button "Roll and Sell" logic: Start both the roll and sell loops
 RollAndSell.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
-
 	startRollAndSellLoop()
 end)
+
 
 
 -- Button cli

@@ -662,7 +662,7 @@ end
 local function startSellLoop()
 	game:GetService("RunService").Heartbeat:Connect(function()
 		invokeSellRemote()
-		wait(2.5)  -- Adjust the delay as needed for your loop frequency
+		wait(0.2)  -- Adjust the delay as needed for your loop frequency
 	end)
 end
 

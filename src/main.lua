@@ -626,7 +626,7 @@ local function invokeRollRemote()
 	local remoteFunctionArgs = {
 		[1] = "PremRollSkin10"
 	}
-	wait(0.5)
+	wait(5)
 	game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(remoteFunctionArgs))
 end
 
@@ -659,7 +659,7 @@ end
 local function startRollLoop()
 	coroutine.wrap(function()
 		while true do
-			wait(60)  -- Increased wait time to 10 seconds between rolls
+			wait(5)  -- Increased wait time to 10 seconds between rolls
 			invokeRollRemote()
 		end
 	end)()
@@ -679,7 +679,7 @@ end
 local function startRollAndSellLoop()
 	coroutine.wrap(function()
 		while true do
-			wait(60)  -- Increased wait time to 10 seconds for roll
+			wait(5)  -- Increased wait time to 10 seconds for roll
 			invokeRollRemote()
 			invokeSellRemote()
 			wait(1)  -- Increased wait time to 1 second for selling

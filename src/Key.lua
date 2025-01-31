@@ -89,7 +89,7 @@ enterButton.MouseButton1Click:Connect(function()
         keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
         wait(1) -- Optional delay before destroying
         screenGui:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/main.lua", true))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/main", true))()
     else
         print("Invalid key: " .. key)
         -- You can add any action here when the key is invalid
@@ -97,4 +97,3 @@ enterButton.MouseButton1Click:Connect(function()
         keyInputBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red color for error
     end
 end)
-

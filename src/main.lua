@@ -680,6 +680,8 @@ local function startRollAndSellLoop()
 	coroutine.wrap(function()
 		while true do
 			wait(5)  -- Increased wait time to 10 seconds for roll
+			game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(remoteFunctionArgs))
+
 			invokeRollRemote()
 			invokeSellRemote()
 			wait(1)  -- Increased wait time to 1 second for selling

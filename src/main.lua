@@ -626,7 +626,7 @@ local function invokeRollRemote()
 	local remoteFunctionArgs = {
 		[1] = "PremRollSkin10"
 	}
-	wait(120)
+	wait(90)
 	game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(remoteFunctionArgs))
 end
 

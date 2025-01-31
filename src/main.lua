@@ -756,12 +756,10 @@ local player = Players.LocalPlayer
 
 -- Check if _G.number exists and if it's set to 1
 if _G.number == 1 then
-    print(_G.number)
     player:Kick("Don't Execute Twice. Sent to a Moderator.") -- Kicks the player if _G.number is set to 1
 end
 
 -- If _G.number is nil, assign it to 1 and print it
 if _G.number == nil then
     _G.number = 1
-    print(_G.number)
 end

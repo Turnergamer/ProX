@@ -613,6 +613,11 @@ end)
 
 
 
+
+
+
+
+
 --args
 
 
@@ -652,42 +657,48 @@ end
 
 local function startRollLoop()
 	game:GetService("RunService").Heartbeat:Connect(function()
-		wait(5)  -- Adjust the delay as needed for your loop frequency
+		wait(10)  -- Increased wait time to 10 seconds
 
 		invokeRollRemote()
 	end)
 end
 
--- Sell function that loops indefinitely
+-- Slowing down the sell loop by increasing the wait time
 local function startSellLoop()
 	game:GetService("RunService").Heartbeat:Connect(function()
 		invokeSellRemote()
-		wait(0.2)  -- Adjust the delay as needed for your loop frequency
+		wait(1)  -- Increased wait time to 1 second
 	end)
 end
 
--- Roll and Sell function that loops both roll and sell
+-- Slowing down both roll and sell loop by adjusting both wait times
 local function startRollAndSellLoop()
 	game:GetService("RunService").Heartbeat:Connect(function()
-		wait(5)  -- Adjust the delay as needed for your loop frequency
+		wait(10)  -- Increased wait time to 10 seconds for roll
 
 		invokeRollRemote()
 		invokeSellRemote()
+		wait(1)  -- Increased wait time to 1 second for sell
 	end)
 end
 
-
 JustRoll.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+
 	startRollLoop()
 end)
 
 -- Button "Sell All" logic: Start only the sell loop
 JustSell.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+
 	startSellLoop()
 end)
 
 -- Button "Roll and Sell" logic: Start both the roll and sell loops
 RollAndSell.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+
 	startRollAndSellLoop()
 end)
 

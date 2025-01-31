@@ -97,3 +97,4 @@ enterButton.MouseButton1Click:Connect(function()
         keyInputBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red color for error
     end
 end)
+

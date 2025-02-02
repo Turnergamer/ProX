@@ -1,15 +1,16 @@
 local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/keys/keys", true))
-
 local KEYS = {}
 -- Convert the comma-separated keys into a table
 for key in string.gmatch(ids, "%S+") do
     table.insert(KEYS, key)
 end
 
-
 local Premiumids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/keys/premkeys", true))
-
-
+local PREMIUMKEYS = {}
+-- Convert the comma-separated premium keys into a table
+for premkey in string.gmatch(Premiumids, "%S+") do
+    table.insert(PREMIUMKEYS, premkey)
+end
 
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -85,12 +86,31 @@ enterButton.MouseButton1Click:Connect(function()
             break
         end
     end
+
+    -- If not a regular key, check if it is a premium key
+    local validPremiumKey = false
+    if not validKey then
+        for _, premstoredKey in ipairs(PREMIUMKEYS) do
+            if premstoredKey == key then
+                validPremiumKey = true
+                break
+            end
+        end
+    end
     
     -- Display feedback to the user
     if validKey then
         print("Key is valid: " .. key)
         -- You can add any action here when the key is valid
         keyInputBox.Text = "Key Accepted"
+        keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
+        wait(1) -- Optional delay before destroying
+        screenGui:Destroy()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/main.lua", true))()
+    elseif validPremiumKey then
+        print("Premium Key is valid: " .. key)
+        -- You can add any action here when the premium key is valid
+        keyInputBox.Text = "Premium Key Accepted"
         keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
         wait(1) -- Optional delay before destroying
         screenGui:Destroy()

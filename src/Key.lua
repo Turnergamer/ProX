@@ -1,4 +1,4 @@
-local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys/keys", true))
+local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys", true))
 
 local KEYS = {}
 -- Convert the comma-separated keys into a table
@@ -7,13 +7,9 @@ for key in string.gmatch(ids, "%S+") do
 end
 
 
-local PREMIUMIDS = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys/premkeys", true))
+local Premiumids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys", true))
 
-local PREMIUMKEYS = {}
--- Convert the comma-separated keys into a table
-for premkey in string.gmatch(PREMIUMIDS, "%S+") do
-    table.insert(PREMIUMKEYS, premkey)
-end
+
 
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -89,34 +85,12 @@ enterButton.MouseButton1Click:Connect(function()
             break
         end
     end
-    local premkey = keyInputBox.Text
-    -- Check if the entered key exists in the KEYS table
-    local premvalidKey = false
-    for _, premstoredKey in ipairs(PREMIUMKEYS) do
-        if premstoredKey == premkey then
-            premvalidKey = true
-            break
-        end
-    end
-    if premvalidKey then
-        print("Key is valid: " .. key)
-        -- You can add any action here when the key is valid
-        keyInputBox.Text = "Key Accepted"
-        keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
-        wait(1) -- Optional delay before destroying
-        screenGui:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/main.lua", true))()
-    else
-        print("Invalid key: " .. key)
-        -- You can add any action here when the key is invalid
-        keyInputBox.Text = "Invalid Key"
-        keyInputBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red color for error
     
     -- Display feedback to the user
     if validKey then
         print("Key is valid: " .. key)
         -- You can add any action here when the key is valid
-        keyInputBox.Text = "Premium Key Accepted"
+        keyInputBox.Text = "Key Accepted"
         keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
         wait(1) -- Optional delay before destroying
         screenGui:Destroy()

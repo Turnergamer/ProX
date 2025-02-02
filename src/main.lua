@@ -2,6 +2,7 @@
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/VersionCheck.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/Premium.lua", true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/dsync.lua", true))()
 
 
 
@@ -807,4 +808,30 @@ end
 -- If _G.number is nil, assign it to 1 and print it
 if _G.number == nil then
 	_G.number = 1
+end
+
+
+
+
+
+
+
+
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Target the parts you want to delete
+local rightLowerArm = character:FindFirstChild("RightLowerArm")
+local rightUpperArm = character:FindFirstChild("RightUpperArm")
+local rightUpperArm = character:FindFirstChild("LeftUpperArm")
+local rightLowerArm = character:FindFirstChild("LeftLowerArm")
+
+-- Check if the parts exist and delete them
+if rightLowerArm then
+    rightLowerArm:Destroy()
+end
+
+if rightUpperArm then
+    rightUpperArm:Destroy()
 end

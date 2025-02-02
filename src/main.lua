@@ -418,6 +418,51 @@ CreditText.Parent = CreditsTab
 CreditText.BackgroundTransparency = 1
 -- End of the GUI Setup
 
+
+local Nocooldown = Instance.new("TextLabel")
+Nocooldown.Name = "CrateText"
+Nocooldown.Size = UDim2.new(0.4, 0, 0.2, 0)
+Nocooldown.Position = UDim2.new(0, 0, 0.4, 0)
+Nocooldown.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Nocooldown.Text = "No Cooldown"
+Nocooldown.TextColor3 = Color3.fromRGB(255, 255, 255)
+Nocooldown.TextScaled = true
+Nocooldown.Font = Enum.Font.GothamBold
+Nocooldown.Parent = MiscTab
+
+local Nocooldown = Instance.new("TextButton")
+Nocooldown.Name = "No Cooldown"
+Nocooldown.Size = UDim2.new(0.2, 0, 0.15, 0)
+Nocooldown.Position = UDim2.new(0.1, 0, 0.6, 0)
+Nocooldown.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Nocooldown.Text = "Enable"
+Nocooldown.TextColor3 = Color3.fromRGB(255, 255, 255)
+Nocooldown.TextScaled = true
+Nocooldown.BorderColor3 = Color3.fromRGB(8, 146, 208)
+Nocooldown.Font = Enum.Font.GothamBold
+Nocooldown.Parent = MiscTab
+
+Nocooldown.MouseButton1Click:Connect(function()
+	for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+		if v:IsA("ProximityPrompt") then
+			v["HoldDuration"] = 0
+		end
+	end
+
+
+	game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(function(v)
+		v["HoldDuration"] = 0
+	end)
+end)
+
+
+
+
+
+
+
+
+
 --MISC
 
 local UserInputService = game:GetService("UserInputService")
@@ -756,10 +801,10 @@ local player = Players.LocalPlayer
 
 -- Check if _G.number exists and if it's set to 1
 if _G.number == 1 then
-    player:Kick("Don't Execute Twice. Sent to a Moderator.") -- Kicks the player if _G.number is set to 1
+	player:Kick("Don't Execute Twice. Sent to a Moderator.") -- Kicks the player if _G.number is set to 1
 end
 
 -- If _G.number is nil, assign it to 1 and print it
 if _G.number == nil then
-    _G.number = 1
+	_G.number = 1
 end

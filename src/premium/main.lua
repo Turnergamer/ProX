@@ -64,7 +64,7 @@ TitleLabel.Name = "TitleLabel"
 TitleLabel.Size = UDim2.new(1, 0, 0.1, 0)
 TitleLabel.Position = UDim2.new(-0.42, 0, 0, 0)
 TitleLabel.BackgroundTransparency = 1
-TitleLabel.Text = "ProX Premium"
+TitleLabel.Text = "ProX+"
 TitleLabel.TextColor3 = Color3.fromRGB(8, 146, 208)
 TitleLabel.TextScaled = true
 TitleLabel.Font = Enum.Font.ArialBold
@@ -467,16 +467,7 @@ CreditTitle.TextScaled = true
 CreditTitle.Font = Enum.Font.GothamBold
 CreditTitle.Parent = CreditsTab
 
-local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Name = "TitleLabel"
-TitleLabel.Size = UDim2.new(1, 0, 0.1, 0)
-TitleLabel.Position = UDim2.new(-0.42, 0, 0, 0)
-TitleLabel.BackgroundTransparency = 1
-TitleLabel.Text = "ProX"
-TitleLabel.TextColor3 = Color3.fromRGB(8, 146, 208)
-TitleLabel.TextScaled = true
-TitleLabel.Font = Enum.Font.ArialBold
-TitleLabel.Parent = frame
+
 
 
 local CreditText = Instance.new("TextLabel")

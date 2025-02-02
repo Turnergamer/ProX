@@ -927,3 +927,15 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
         ascreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     end
 end)
+
+
+local Players = game:GetService("Players")
+
+-- Check if the server is private
+if game.PrivateServerId ~= "" then
+    -- If the server is private, check the player and kick them
+    Players.PlayerAdded:Connect(function(player)
+        -- You can check if you want to kick specific players or all players in a private server
+        player:Kick("You are not allowed to join this private server.")
+    end)
+end

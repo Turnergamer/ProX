@@ -1,4 +1,4 @@
-local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys", true))
+local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/keys/keys", true))
 
 local KEYS = {}
 -- Convert the comma-separated keys into a table
@@ -7,7 +7,7 @@ for key in string.gmatch(ids, "%S+") do
 end
 
 
-local Premiumids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys", true))
+local Premiumids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/keys/premkeys", true))
 
 
 

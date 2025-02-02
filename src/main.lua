@@ -37,6 +37,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local button = Instance.new("TextButton")
+local UserInputService = game:GetService("UserInputService")
+
+
+
+
 
 -- Parent the GUI to the Player's ScreenGui
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -279,8 +284,8 @@ SilentAimButton.Parent = CombatTab
 -- Movement Text in Combat Tab
 local MovementText = Instance.new("TextLabel")
 MovementText.Name = "MovementText"
-MovementText.Size = UDim2.new(0.7, 0, 0.2, 0)
-MovementText.Position = UDim2.new(0.15, 0, 0.4, 0)
+MovementText.Size = UDim2.new(0.4, 0, 0.2, 0)
+MovementText.Position = UDim2.new(0, 0, 0.4, 0)
 MovementText.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 MovementText.Text = "Movement Options"
 MovementText.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -291,7 +296,7 @@ MovementText.Parent = CombatTab
 local SPEEDHACK = Instance.new("TextButton")
 SPEEDHACK.Name = "Speedhack"
 SPEEDHACK.Size = UDim2.new(0.2, 0, 0.15, 0)
-SPEEDHACK.Position = UDim2.new(0.4, 0, 0.6, 0)
+SPEEDHACK.Position = UDim2.new(0.1, 0, 0.6, 0)
 SPEEDHACK.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 SPEEDHACK.Text = "Speedhack"
 SPEEDHACK.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -300,6 +305,71 @@ SPEEDHACK.BorderColor3 = Color3.fromRGB(8, 146, 208)
 SPEEDHACK.Font = Enum.Font.GothamBold
 SPEEDHACK.Parent = CombatTab
 
+
+
+
+
+
+
+local Dsync = Instance.new("TextLabel")
+Dsync.Name = "DsyncText"
+Dsync.Size = UDim2.new(0.4, 0, 0.2, 0)
+Dsync.Position = UDim2.new(0.5, 0, 0.4, 0)
+Dsync.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Dsync.Text = "Dsync"
+Dsync.TextColor3 = Color3.fromRGB(255, 255, 255)
+Dsync.TextScaled = true
+Dsync.Font = Enum.Font.GothamBold
+Dsync.Parent = CombatTab
+
+
+
+
+
+local DsyncKeybind = Instance.new("TextButton")
+DsyncKeybind.Name = "Dsync Keybind"
+DsyncKeybind.Size = UDim2.new(0.2, 0, 0.15, 0)
+DsyncKeybind.Position = UDim2.new(0.75, 0, 0.6, 0)
+DsyncKeybind.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+DsyncKeybind.Text = "Press a Key..."
+DsyncKeybind.TextColor3 = Color3.fromRGB(255, 255, 255)
+DsyncKeybind.TextScaled = true
+DsyncKeybind.BorderColor3 = Color3.fromRGB(8, 146, 208)
+DsyncKeybind.Font = Enum.Font.GothamBold
+DsyncKeybind.Parent = CombatTab
+
+
+local DsyncKeybindIs = Enum.KeyCode.P -- Default Key is "F"
+
+
+
+
+
+waitingForKey2 = false
+
+DsyncKeybind.MouseButton1Click:Connect(function()
+	if waitingForKey2 then return end
+	waitingForKey2 = true
+	DsyncKeybind.Text = "Press a Key..."
+
+	local connection
+	connection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+		if gameProcessed then return end
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			DsyncKeybindIs = input.KeyCode -- Set new keybind
+			DsyncKeybind.Text = "Key: " .. tostring(DsyncKeybindIs):gsub("Enum.KeyCode.", "")
+			waitingForKey2 = false
+			connection:Disconnect()
+		end
+	end)
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.KeyCode == DsyncKeybindIs then
+		_G.DsyncCheck = not _G.DsyncCheck
+		print("sigma") -- Replace this with your Silent Aim function
+	end
+end)
 
 tpwalking = false  -- Start with tpwalking off
 
@@ -829,9 +899,21 @@ local rightLowerArm = character:FindFirstChild("LeftLowerArm")
 
 -- Check if the parts exist and delete them
 if rightLowerArm then
-    rightLowerArm:Destroy()
+	rightLowerArm:Destroy()
 end
 
 if rightUpperArm then
-    rightUpperArm:Destroy()
+	rightUpperArm:Destroy()
 end
+
+
+
+
+
+
+
+
+
+-- Define the keybind you're using for Dsync
+
+-- Other initialization code

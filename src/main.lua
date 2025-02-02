@@ -923,4 +923,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
     if not screenGui.Parent then
         screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     end
+	if not ascreenGui.Parent then
+        ascreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    end
 end)

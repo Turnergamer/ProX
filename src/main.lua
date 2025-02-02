@@ -932,10 +932,27 @@ end)
 local Players = game:GetService("Players")
 
 -- Check if the server is private
-if game.PrivateServerId ~= "" then
-    -- If the server is private, check the player and kick them
-    Players.PlayerAdded:Connect(function(player)
-        -- You can check if you want to kick specific players or all players in a private server
-        player:Kick("You are not allowed to join this private server.")
-    end)
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- Function to check if the player is the only one in the server
+local function checkIfAlone()
+    -- Wait for the player list to be available (just in case we're still waiting for players to load)
+    while #Players:GetPlayers() == 0 do
+        wait(1)
+    end
+
+    -- Check if this player is the only one in the server
+    if #Players:GetPlayers() == 1 then
+        -- If this is the only player, kick them
+        player:Kick("You are the only player in the server.")
+    end
 end
+
+-- Call the function to check if the player is alone
+checkIfAlone()
+
+-- Optionally, keep checking periodically (in case new players join after some time)
+Players.PlayerAdded:Connect(function()
+    checkIfAlone()
+end)

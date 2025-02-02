@@ -7,7 +7,7 @@ local lplr = game:GetService("Players").LocalPlayer
 local animation = Instance.new("Animation")
 animation.AnimationId = "http://www.roblox.com/asset/?id=15693621070"
 local danceTrack
-
+_G.DsyncCheck = false
 -- Check if _G.DsyncCheck is true, and if so, enable the feature
 if _G.DsyncCheck then
     -- Automatically enable the animation if _G.DsyncCheck is true

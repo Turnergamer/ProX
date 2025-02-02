@@ -41,6 +41,12 @@
     TitleLabel.Font = Enum.Font.ArialBold
     TitleLabel.Parent = frame
 
+
+
+
+
+
+    
     -- Key Input Box
     local keyInputBox = Instance.new("TextBox")
     keyInputBox.Size = UDim2.new(0.6, 0, 0.1, 0) -- 60% width and 10% height of the frame

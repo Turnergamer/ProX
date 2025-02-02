@@ -1,5 +1,4 @@
 local ids = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/id", true))
-print(ids) -- prints 8328372 798327 937297
 
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")

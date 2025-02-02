@@ -5,7 +5,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs
 
 
 --premium
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/premium/premiumidscheck.lua", true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/premium/premiumidcheck.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/premium/premiumlog.lua", true))()
 
 

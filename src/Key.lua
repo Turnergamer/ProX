@@ -116,7 +116,7 @@ enterButton.MouseButton1Click:Connect(function()
     if validKey then
         print("Key is valid: " .. key)
         -- You can add any action here when the key is valid
-        keyInputBox.Text = "Key Accepted"
+        keyInputBox.Text = "Premium Key Accepted"
         keyInputBox.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for success
         wait(1) -- Optional delay before destroying
         screenGui:Destroy()

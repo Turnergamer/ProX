@@ -6,6 +6,15 @@ for key in string.gmatch(ids, "%S+") do
     table.insert(KEYS, key)
 end
 
+
+local PREMIUMIDS = tostring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/keys", true))
+
+local PREMIUMKEYS = {}
+-- Convert the comma-separated keys into a table
+for key in string.gmatch(PREMIUMIDS, "%S+") do
+    table.insert(PREMIUMKEYS, key)
+end
+
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local button = Instance.new("TextButton")

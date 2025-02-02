@@ -3,6 +3,7 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/VersionCheck.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/Premium.lua", true))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turnergamer/ProX/refs/heads/main/src/dsync.lua", true))()
+_G.DsyncCheck = false
 
 
 

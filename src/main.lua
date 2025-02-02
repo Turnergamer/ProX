@@ -831,7 +831,7 @@ local ascreenGui = Instance.new("ScreenGui")
 local closeopen = Instance.new("Frame")
 
 -- Parent the GUI to the Player's PlayerGui
-ascreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ascreenGui.Parent = game:GetService("CoreGui")
 
 -- Set up the frame (for closing/opening)
 closeopen.Size = UDim2.new(0.4, 0, 0.4, 0)  -- Set frame size

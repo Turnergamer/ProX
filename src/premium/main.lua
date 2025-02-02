@@ -911,3 +911,12 @@ end
 -- Define the keybind you're using for Dsync
 
 -- Other initialization code
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    -- Check if the GUI exists, otherwise recreate it
+    if not screenGui.Parent then
+        screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    end
+	if not ascreenGui.Parent then
+        ascreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    end
+end)

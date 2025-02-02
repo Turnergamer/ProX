@@ -46,8 +46,7 @@ local UserInputService = game:GetService("UserInputService")
 
 
 -- Parent the GUI to the Player's ScreenGui
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
+screenGui.Parent = game:GetService("CoreGui")
 -- Configure the Frame
 frame.Parent = screenGui
 frame.Size = UDim2.new(0, 600, 0, 400) -- Increased size

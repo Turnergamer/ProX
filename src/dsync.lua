@@ -32,7 +32,7 @@ spawn(function()
                 end
             end
         end
-        wait(0.5) -- Adjust timing to optimize performance
+        wait(0.2) -- Adjust timing to optimize performance
     end
 end)
 
